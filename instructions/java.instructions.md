@@ -1,6 +1,6 @@
 ---
-description: 'Guidelines for building Java base applications'
-applyTo: '**/*.java'
+description: "Guidelines for building Java base applications"
+applyTo: "**/*.java"
 ---
 
 # Java Development
@@ -35,26 +35,26 @@ applyTo: '**/*.java'
 
 ### Bug Patterns
 
-| Rule ID | Description                                                 | Example / Notes                                                                                  |
-| ------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `S2095` | Resources should be closed                                  | Use try-with-resources when working with streams, files, sockets, etc.                           |
-| `S1698` | Objects should be compared with `.equals()` instead of `==` | Especially important for Strings and boxed primitives.                                           |
-| `S1905` | Redundant casts should be removed                           | Clean up unnecessary or unsafe casts.                                                            |
-| `S3518` | Conditions should not always evaluate to true or false      | Watch for infinite loops or if-conditions that never change.                                     |
-| `S108`  | Unreachable code should be removed                          | Code after `return`, `throw`, etc., must be cleaned up.                                          |
+| Rule ID | Description                                                 | Example / Notes                                                        |
+| ------- | ----------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `S2095` | Resources should be closed                                  | Use try-with-resources when working with streams, files, sockets, etc. |
+| `S1698` | Objects should be compared with `.equals()` instead of `==` | Especially important for Strings and boxed primitives.                 |
+| `S1905` | Redundant casts should be removed                           | Clean up unnecessary or unsafe casts.                                  |
+| `S3518` | Conditions should not always evaluate to true or false      | Watch for infinite loops or if-conditions that never change.           |
+| `S108`  | Unreachable code should be removed                          | Code after `return`, `throw`, etc., must be cleaned up.                |
 
 ## Code Smells
 
-| Rule ID | Description                                            | Example / Notes                                                               |
-| ------- | ------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| `S107`  | Methods should not have too many parameters            | Refactor into helper classes or use builder pattern.                          |
-| `S121`  | Duplicated blocks of code should be removed            | Consolidate logic into shared methods.                                        |
-| `S138`  | Methods should not be too long                         | Break complex logic into smaller, testable units.                             |
-| `S3776` | Cognitive complexity should be reduced                 | Simplify nested logic, extract methods, avoid deep `if` trees.                |
-| `S1192` | String literals should not be duplicated               | Replace with constants or enums.                                              |
-| `S1854` | Unused assignments should be removed                   | Avoid dead variables—remove or refactor.                                      |
-| `S109`  | Magic numbers should be replaced with constants        | Improves readability and maintainability.                                     |
-| `S1188` | Catch blocks should not be empty                       | Always log or handle exceptions meaningfully.                                 |
+| Rule ID | Description                                     | Example / Notes                                                |
+| ------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| `S107`  | Methods should not have too many parameters     | Refactor into helper classes or use builder pattern.           |
+| `S121`  | Duplicated blocks of code should be removed     | Consolidate logic into shared methods.                         |
+| `S138`  | Methods should not be too long                  | Break complex logic into smaller, testable units.              |
+| `S3776` | Cognitive complexity should be reduced          | Simplify nested logic, extract methods, avoid deep `if` trees. |
+| `S1192` | String literals should not be duplicated        | Replace with constants or enums.                               |
+| `S1854` | Unused assignments should be removed            | Avoid dead variables—remove or refactor.                       |
+| `S109`  | Magic numbers should be replaced with constants | Improves readability and maintainability.                      |
+| `S1188` | Catch blocks should not be empty                | Always log or handle exceptions meaningfully.                  |
 
 ## Build and Verification
 

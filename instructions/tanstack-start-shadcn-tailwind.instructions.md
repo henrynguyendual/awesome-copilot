@@ -1,6 +1,6 @@
 ---
-description: 'Guidelines for building TanStack Start applications'
-applyTo: '**/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.css, **/*.scss, **/*.json'
+description: "Guidelines for building TanStack Start applications"
+applyTo: "**/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.css, **/*.scss, **/*.json"
 ---
 
 # TanStack Start with Shadcn/ui Development Guide
@@ -8,6 +8,7 @@ applyTo: '**/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.css, **/*.scss, **/*.json'
 You are an expert TypeScript developer specializing in TanStack Start applications with modern React patterns.
 
 ## Tech Stack
+
 - TypeScript (strict mode)
 - TanStack Start (routing & SSR)
 - Shadcn/ui (UI components)
@@ -31,10 +32,10 @@ Use function components with proper TypeScript interfaces:
 interface ButtonProps {
   children: React.ReactNode;
   onClick: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
-export default function Button({ children, onClick, variant = 'primary' }: ButtonProps) {
+export default function Button({ children, onClick, variant = "primary" }: ButtonProps) {
   return (
     <button onClick={onClick} className={cn(buttonVariants({ variant }))}>
       {children}
@@ -46,28 +47,30 @@ export default function Button({ children, onClick, variant = 'primary' }: Butto
 ## Data Fetching
 
 Use Route Loaders for:
+
 - Initial page data required for rendering
 - SSR requirements
 - SEO-critical data
 
 Use React Query for:
+
 - Frequently updating data
 - Optional/secondary data
 - Client mutations with optimistic updates
 
 ```typescript
 // Route Loader
-export const Route = createFileRoute('/users')({
+export const Route = createFileRoute("/users")({
   loader: async () => {
-    const users = await fetchUsers()
-    return { users: userListSchema.parse(users) }
+    const users = await fetchUsers();
+    return { users: userListSchema.parse(users) };
   },
   component: UserList,
-})
+});
 
 // React Query
 const { data: stats } = useQuery({
-  queryKey: ['user-stats', userId],
+  queryKey: ["user-stats", userId],
   queryFn: () => fetchUserStats(userId),
   refetchInterval: 30000,
 });
@@ -82,16 +85,16 @@ export const userSchema = z.object({
   id: z.string(),
   name: z.string().min(1).max(100),
   email: z.string().email().optional(),
-  role: z.enum(['admin', 'user']).default('user'),
-})
+  role: z.enum(["admin", "user"]).default("user"),
+});
 
-export type User = z.infer<typeof userSchema>
+export type User = z.infer<typeof userSchema>;
 
 // Safe parsing
-const result = userSchema.safeParse(data)
+const result = userSchema.safeParse(data);
 if (!result.success) {
-  console.error('Validation failed:', result.error.format())
-  return null
+  console.error("Validation failed:", result.error.format());
+  return null;
 }
 ```
 
@@ -100,15 +103,13 @@ if (!result.success) {
 Structure routes in `src/routes/` with file-based routing. Always include error and pending boundaries:
 
 ```typescript
-export const Route = createFileRoute('/users/$id')({
+export const Route = createFileRoute("/users/$id")({
   loader: async ({ params }) => {
     const user = await fetchUser(params.id);
     return { user: userSchema.parse(user) };
   },
   component: UserDetail,
-  errorBoundary: ({ error }) => (
-    <div className="text-red-600 p-4">Error: {error.message}</div>
-  ),
+  errorBoundary: ({ error }) => <div className="text-red-600 p-4">Error: {error.message}</div>,
   pendingBoundary: () => (
     <div className="flex items-center justify-center p-4">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
@@ -122,8 +123,8 @@ export const Route = createFileRoute('/users/$id')({
 Always prefer Shadcn/ui components over custom ones:
 
 ```typescript
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 <Card>
   <CardHeader>
@@ -132,7 +133,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
   <CardContent>
     <Button onClick={handleSave}>Save</Button>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 Use Tailwind for styling with responsive design:
@@ -187,11 +188,11 @@ Use `@/` alias for all internal imports:
 
 ```typescript
 // ✅ Good
-import { Button } from '@/components/ui/button'
-import { userSchema } from '@/lib/schemas'
+import { Button } from "@/components/ui/button";
+import { userSchema } from "@/lib/schemas";
 
 // ❌ Bad
-import { Button } from '../components/ui/button'
+import { Button } from "../components/ui/button";
 ```
 
 ## Adding Components
