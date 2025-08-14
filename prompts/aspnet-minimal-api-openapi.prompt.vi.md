@@ -1,42 +1,42 @@
 ---
 mode: "agent"
 tools: ["changes", "codebase", "editFiles", "problems"]
-description: "Tạo các endpoint API Minimal ASP.NET với tài liệu OpenAPI phù hợp"
+description: "Tạo các endpoint ASP.NET Minimal API với tài liệu OpenAPI phù hợp"
 ---
 
 # ASP.NET Minimal API với OpenAPI
 
-Mục tiêu của bạn là giúp tôi tạo các endpoint API Minimal ASP.NET được cấu trúc tốt với các loại đúng và tài liệu OpenAPI/Swagger toàn diện.
+Mục tiêu của bạn là giúp tôi tạo ra các endpoint ASP.NET Minimal API có cấu trúc tốt với các kiểu dữ liệu chính xác và tài liệu OpenAPI/Swagger đầy đủ.
 
 ## Tổ chức API
 
-- Nhóm các endpoint liên quan bằng cách sử dụng phần mở rộng `MapGroup()`
-- Sử dụng các bộ lọc endpoint cho các vấn đề xuyên suốt
+- Nhóm các endpoint liên quan bằng cách sử dụng extension `MapGroup()`
+- Sử dụng bộ lọc endpoint (endpoint filters) cho các mối quan tâm xuyên suốt (cross-cutting concerns)
 - Cấu trúc các API lớn hơn với các lớp endpoint riêng biệt
-- Xem xét sử dụng cấu trúc thư mục dựa trên tính năng cho các API phức tạp
+- Cân nhắc sử dụng cấu trúc thư mục dựa trên tính năng (feature-based) cho các API phức tạp
 
-## Các Loại Yêu Cầu và Phản Hồi
+## Các kiểu Yêu cầu (Request) và Phản hồi (Response)
 
-- Định nghĩa các DTO/mô hình yêu cầu và phản hồi rõ ràng
-- Tạo các lớp mô hình rõ ràng với các thuộc tính xác thực phù hợp
-- Sử dụng các loại record cho các đối tượng yêu cầu/phản hồi bất biến
-- Sử dụng tên thuộc tính có ý nghĩa phù hợp với tiêu chuẩn thiết kế API
+- Định nghĩa rõ ràng các DTO/model cho yêu cầu và phản hồi
+- Tạo các lớp model rõ ràng với các thuộc tính xác thực (validation attributes) phù hợp
+- Sử dụng kiểu `record` cho các đối tượng yêu cầu/phản hồi bất biến (immutable)
+- Sử dụng tên thuộc tính có ý nghĩa, phù hợp với tiêu chuẩn thiết kế API
 - Áp dụng `[Required]` và các thuộc tính xác thực khác để thực thi các ràng buộc
-- Sử dụng ProblemDetailsService và StatusCodePages để nhận các phản hồi lỗi tiêu chuẩn
+- Sử dụng `ProblemDetailsService` và `StatusCodePages` để nhận các phản hồi lỗi tiêu chuẩn
 
-## Xử Lý Loại
+## Xử lý kiểu dữ liệu
 
-- Sử dụng các tham số đường dẫn được gõ mạnh mẽ với ràng buộc loại rõ ràng
-- Sử dụng `Results<T1, T2>` để đại diện cho nhiều loại phản hồi
-- Trả về `TypedResults` thay vì `Results` cho các phản hồi được gõ mạnh mẽ
-- Tận dụng các tính năng C# 10+ như chú thích nullable và thuộc tính chỉ khởi tạo
+- Sử dụng tham số định tuyến (route parameters) có kiểu dữ liệu tường minh (strongly-typed) với liên kết kiểu (type binding) rõ ràng
+- Sử dụng `Results<T1, T2>` để đại diện cho nhiều kiểu phản hồi
+- Trả về `TypedResults` thay vì `Results` để có các phản hồi có kiểu dữ liệu tường minh
+- Tận dụng các tính năng của C# 10+ như chú thích cho phép giá trị null (nullable annotations) và thuộc tính chỉ khởi tạo (init-only properties)
 
-## Tài Liệu OpenAPI
+## Tài liệu OpenAPI
 
-- Sử dụng hỗ trợ tài liệu OpenAPI tích hợp được thêm vào .NET 9
-- Định nghĩa tóm tắt và mô tả hoạt động
-- Thêm operationIds bằng cách sử dụng phương thức mở rộng `WithName`
-- Thêm mô tả cho các thuộc tính và tham số với `[Description()]`
-- Đặt các loại nội dung phù hợp cho yêu cầu và phản hồi
-- Sử dụng các bộ chuyển đổi tài liệu để thêm các yếu tố như máy chủ, thẻ và sơ đồ bảo mật
-- Sử dụng các bộ chuyển đổi schema để áp dụng các tùy chỉnh cho các schema OpenAPI
+- Sử dụng hỗ trợ tài liệu OpenAPI tích hợp sẵn được thêm vào trong .NET 9
+- Định nghĩa tóm tắt (summary) và mô tả (description) cho hoạt động (operation)
+- Thêm `operationId` bằng cách sử dụng phương thức mở rộng `WithName`
+- Thêm mô tả cho các thuộc tính và tham số bằng `[Description()]`
+- Thiết lập các kiểu nội dung (content types) phù hợp cho yêu cầu và phản hồi
+- Sử dụng bộ biến đổi tài liệu (document transformers) để thêm các yếu tố như máy chủ (servers), thẻ (tags) và lược đồ bảo mật (security schemes)
+- Sử dụng bộ biến đổi lược đồ (schema transformers) để áp dụng các tùy chỉnh cho lược

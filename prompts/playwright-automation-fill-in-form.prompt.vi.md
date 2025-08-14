@@ -1,23 +1,26 @@
-# Tự Động Điền Biểu Mẫu với Playwright MCP
+---
+description: "Tự động điền vào biểu mẫu bằng Playwright MCP"
+mode: agent
+tools: ["playwright"]
+model: "Claude Sonnet 4"
+---
 
-Mục tiêu của bạn là tự động hóa quá trình điền một biểu mẫu bằng Playwright MCP.
+# Tự động hóa việc điền biểu mẫu với Playwright MCP
 
-## Hướng Dẫn Cụ Thể
+Mục tiêu của bạn là tự động hóa quy trình điền vào biểu mẫu bằng Playwright MCP.
 
-Đi tới địa chỉ: https://forms.microsoft.com/url-of-my-form
+## Hướng dẫn cụ thể
 
-### Điền vào biểu mẫu với các thông tin sau:
+Điều hướng đến https://forms.microsoft.com/url-of-my-form
 
-1. Show: playwright live
+### Điền vào biểu mẫu với các chi tiết sau:
 
-2. Ngày: 15 tháng 7
+1.  Chương trình: playwright live
+2.  Ngày: 15 tháng 7
+3.  Thời gian: 1:00 sáng
+4.  Chủ đề: Playwright Live - Cập nhật mới nhất về Playwright MCP + Demo trực tiếp
+5.  Tải lên hình ảnh: /Users/myuserName/Downloads/my-image.png
 
-3. Giờ: 1:00 AM
+KHÔNG GỬI BIỂU MẪU.
 
-4. Chủ đề: Playwright Live - Cập nhật mới nhất về Playwright MCP + Demo trực tiếp
-
-5. Tải lên hình ảnh: /Users/myuserName/Downloads/my-image.png
-
-KHÔNG ĐƯỢC gửi biểu mẫu.
-
-Yêu cầu xem lại biểu mẫu trước khi gửi.
+Yêu cầu xem lại biểu

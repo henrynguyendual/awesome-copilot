@@ -1,92 +1,99 @@
-# Tạo Hồ Sơ Quyết Định Kiến Trúc (ADR)
+---
+mode: "agent"
+description: "Tạo tài liệu Ghi chép Quyết định Kiến trúc (ADR) cho việc ghi lại quyết định được tối ưu hóa cho AI."
+tools: ["changes", "codebase", "editFiles", "extensions", "fetch", "githubRepo", "openSimpleBrowser", "problems", "runTasks", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI"]
+---
 
-Tạo tài liệu ADR cho `${input:DecisionTitle}` với định dạng cấu trúc tối ưu cho cả AI và con người đọc.
+# Tạo Ghi chép Quyết định Kiến trúc
 
-## Đầu Vào
+Tạo một tài liệu ADR cho `${input:DecisionTitle}` sử dụng định dạng có cấu trúc được tối ưu hóa cho cả AI và con người đọc hiểu.
 
-- **Ngữ cảnh**: `${input:Context}`
+## Đầu vào
+
+- **Bối cảnh**: `${input:Context}`
 - **Quyết định**: `${input:Decision}`
-- **Phương án thay thế**: `${input:Alternatives}`
+- **Các phương án thay thế**: `${input:Alternatives}`
 - **Các bên liên quan**: `${input:Stakeholders}`
 
-## Xác Thực Đầu Vào
-Nếu bất kỳ thông tin bắt buộc nào không có hoặc không thể xác định từ lịch sử hội thoại, hãy yêu cầu người dùng cung cấp trước khi tạo ADR.
+## Xác thực Đầu vào
 
-## Yêu Cầu
+Nếu bất kỳ thông tin đầu vào bắt buộc nào không được cung cấp hoặc không thể xác định từ lịch sử cuộc trò chuyện, hãy yêu cầu người dùng cung cấp thông tin còn thiếu trước khi tiến hành tạo ADR.
 
-- Sử dụng ngôn ngữ chính xác, rõ ràng
-- Tuân theo định dạng ADR tiêu chuẩn với phần đầu (front matter)
-- Bao gồm cả hậu quả tích cực và tiêu cực
-- Ghi rõ các phương án thay thế cùng lý do từ chối
-- Cấu trúc phù hợp cho việc phân tích máy và tham khảo thủ công
-- Sử dụng ký hiệu bullet code (3-4 chữ + 3 số) cho các mục nhiều dòng
+## Yêu cầu
 
-File ADR phải được lưu trong thư mục `/docs/adr/` với định dạng tên: `adr-NNNN-[title-slug].md`, trong đó NNNN là số thứ tự 4 chữ số tiếp theo (ví dụ: `adr-0001-database-selection.md`).
+- Sử dụng ngôn ngữ chính xác, không mơ hồ
+- Tuân theo định dạng ADR chuẩn hóa với phần front matter
+- Bao gồm cả hệ quả tích cực và tiêu cực
+- Ghi lại các phương án thay thế cùng với lý do từ chối
+- Cấu trúc để máy có thể phân tích và con người có thể tham khảo
+- Sử dụng các gạch đầu dòng được mã hóa (mã 3-4 chữ cái + số có 3 chữ số) cho các mục có nhiều hạng mục
 
-## Cấu Trúc Tài Liệu Bắt Buộc
+ADR phải được lưu trong thư mục `/docs/adr/` theo quy ước đặt tên: `adr-NNNN-[tieu-de-slug].md`, trong đó NNNN là số thứ tự 4 chữ số tiếp theo (ví dụ: `adr-0001-lua-chon-co-so-du-lieu.md`).
 
-File markdown phải tuân thủ mẫu sau:
+## Cấu trúc Tài liệu Bắt buộc
+
+Tệp tài liệu phải tuân theo mẫu dưới đây, đảm bảo tất cả các phần được điền đầy đủ. Phần front matter cho markdown phải được cấu trúc chính xác theo ví dụ sau:
 
 ```md
 ---
-title: "ADR-NNNN: [Tiêu đề quyết định]"
-status: "Proposed"
+title: "ADR-NNNN: [Tiêu đề Quyết định]"
+status: "Đề xuất"
 date: "YYYY-MM-DD"
-authors: "[Tên/Chức vụ các bên liên quan]"
-tags: ["architecture", "decision"]
+authors: "[Tên/Vai trò các bên liên quan]"
+tags: ["kiến trúc", "quyết định"]
 supersedes: ""
 superseded_by: ""
 ---
 
-# ADR-NNNN: [Tiêu đề quyết định]
+# ADR-NNNN: [Tiêu đề Quyết định]
 
-## Trạng Thái
+## Trạng thái
 
-**Proposed** | Accepted | Rejected | Superseded | Deprecated
+**Đề xuất** | Chấp nhận | Từ chối | Thay thế | Không dùng nữa
 
-## Ngữ Cảnh
+## Bối cảnh
 
-[Mô tả vấn đề, ràng buộc kỹ thuật, yêu cầu kinh doanh, và các yếu tố môi trường dẫn đến quyết định này.]
+[Tuyên bố vấn đề, các ràng buộc kỹ thuật, yêu cầu kinh doanh và các yếu tố môi trường đòi hỏi quyết định này.]
 
-## Quyết Định
+## Quyết định
 
-[Giải pháp được chọn cùng lý do lựa chọn.]
+[Giải pháp được chọn cùng với lý do lựa chọn rõ ràng.]
 
-## Hậu Quả
+## Hệ quả
 
-### Tích Cực
+### Tích cực
 
-- **POS-001**: [Kết quả tích cực và lợi ích]
-- **POS-002**: [Cải thiện hiệu năng, bảo trì, khả năng mở rộng]
-- **POS-003**: [Phù hợp nguyên tắc kiến trúc]
+- **POS-001**: [Các kết quả có lợi và ưu điểm]
+- **POS-002**: [Cải thiện về hiệu suất, khả năng bảo trì, khả năng mở rộng]
+- **POS-003**: [Sự phù hợp với các nguyên tắc kiến trúc]
 
-### Tiêu Cực
+### Tiêu cực
 
-- **NEG-001**: [Thỏa hiệp, hạn chế, bất lợi]
-- **NEG-002**: [Nợ kỹ thuật hoặc độ phức tạp]
-- **NEG-003**: [Rủi ro và thách thức tương lai]
+- **NEG-001**: [Các đánh đổi, hạn chế, nhược điểm]
+- **NEG-002**: [Nợ kỹ thuật hoặc sự phức tạp được thêm vào]
+- **NEG-003**: [Rủi ro và thách thức trong tương lai]
 
-## Các Phương Án Xem Xét
+## Các phương án thay thế đã xem xét
 
-### [Tên phương án 1]
+### [Tên phương án thay thế 1]
 
 - **ALT-001**: **Mô tả**: [Mô tả kỹ thuật ngắn gọn]
-- **ALT-002**: **Lý do từ chối**: [Vì sao không chọn]
+- **ALT-002**: **Lý do từ chối**: [Tại sao phương án này không được chọn]
 
-### [Tên phương án 2]
+### [Tên phương án thay thế 2]
 
 - **ALT-003**: **Mô tả**: [Mô tả kỹ thuật ngắn gọn]
-- **ALT-004**: **Lý do từ chối**: [Vì sao không chọn]
+- **ALT-004**: **Lý do từ chối**: [Tại sao phương án này không được chọn]
 
-## Ghi Chú Triển Khai
+## Ghi chú triển khai
 
-- **IMP-001**: [Lưu ý triển khai]
-- **IMP-002**: [Chiến lược chuyển đổi hoặc triển khai]
+- **IMP-001**: [Các cân nhắc chính khi triển khai]
+- **IMP-002**: [Chiến lược di chuyển hoặc triển khai nếu có]
 - **IMP-003**: [Tiêu chí giám sát và thành công]
 
-## Tham Khảo
+## Tài liệu tham khảo
 
-- **REF-001**: [ADR liên quan]
+- **REF-001**: [Các ADR liên quan]
 - **REF-002**: [Tài liệu bên ngoài]
-- **REF-003**: [Tiêu chuẩn hoặc khung tham chiếu]
+- **REF-003**: [Các tiêu chuẩn hoặc
 ```

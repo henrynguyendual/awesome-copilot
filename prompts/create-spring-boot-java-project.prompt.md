@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'editFiles', 'findTestFiles', 'problems', 'runCommands', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'testFailure', 'usages']
-description: 'Create Spring Boot Java project skeleton'
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "findTestFiles", "problems", "runCommands", "runTests", "search", "searchResults", "terminalLastCommand", "testFailure", "usages"]
+description: "Create Spring Boot Java project skeleton"
 ---
 
 # Create Spring Boot Java project prompt

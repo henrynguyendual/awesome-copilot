@@ -1,70 +1,72 @@
 ---
-mode: 'agent'
-description: 'Gợi ý các tệp chatmode GitHub Copilot liên quan từ kho awesome-copilot dựa trên ngữ cảnh của kho hiện tại và lịch sử trò chuyện, tránh trùng lặp với các chatmode hiện có trong kho này.'
-tools: ['changes', 'codebase', 'editFiles', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'github']
+mode: "agent"
+description: "Đề xuất các tệp chatmode GitHub Copilot phù hợp từ kho lưu trữ awesome-copilot dựa trên ngữ cảnh kho lưu trữ hiện tại và lịch sử trò chuyện, tránh trùng lặp với các chatmode hiện có trong kho lưu trữ này."
+tools: ["changes", "codebase", "editFiles", "fetch", "findTestFiles", "githubRepo", "new", "openSimpleBrowser", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI", "github"]
 ---
 
-# Gợi Ý Chatmode GitHub Copilot Tuyệt Vời
+# Đề xuất các Chatmode Tuyệt vời của GitHub Copilot
 
-Phân tích ngữ cảnh kho hiện tại và gợi ý các tệp chatmode liên quan từ [kho awesome-copilot](https://github.com/github/awesome-copilot/tree/main/chatmodes) chưa có sẵn trong kho này.
+Phân tích ngữ cảnh kho lưu trữ hiện tại và đề xuất các tệp chatmode phù hợp từ [kho lưu trữ awesome-copilot của GitHub](https://github.com/github/awesome-copilot/tree/main/chatmodes) mà chưa có sẵn trong kho lưu trữ này.
 
-## Quy Trình
+## Quy trình
 
-1. **Lấy Danh Sách Chatmode Có Sẵn**: Trích xuất danh sách và mô tả chatmode từ [thư mục chatmodes của awesome-copilot](https://github.com/github/awesome-copilot/tree/main/chatmodes)
-2. **Quét Chatmode Cục Bộ**: Tìm các tệp chatmode hiện có trong thư mục `.github/chatmodes/`
-3. **Trích Xuất Mô Tả**: Đọc front matter từ các tệp chatmode cục bộ để lấy mô tả
-4. **Phân Tích Ngữ Cảnh**: Xem xét lịch sử trò chuyện, tệp kho và nhu cầu hiện tại của dự án
-5. **So Sánh Các Tệp Đã Có**: Kiểm tra các chatmode đã có trong kho này
-6. **Đối Chiếu Mức Liên Quan**: So sánh các chatmode có sẵn với nhu cầu và mô hình sử dụng
-7. **Trình Bày Tùy Chọn**: Hiển thị chatmode phù hợp kèm mô tả, lý do đề xuất và trạng thái hiện có
-8. **Xác Thực**: Đảm bảo chatmode đề xuất mang lại giá trị bổ sung chưa được bao phủ
-9. **Kết Quả**: Cung cấp bảng so sánh giữa chatmode awesome-copilot và chatmode cục bộ
-10. **Bước Tiếp Theo**: Nếu có đề xuất, hướng dẫn cách thêm vào repo hoặc thực hiện tự động nếu người dùng đồng ý
+1.  **Tải các Chatmode có sẵn**: Trích xuất danh sách và mô tả các chatmode từ [thư mục chatmodes của awesome-copilot](https://github.com/github/awesome-copilot/tree/main/chatmodes)
+2.  **Quét các Chatmode cục bộ**: Khám phá các tệp chatmode hiện có trong thư mục `.github/chatmodes/`
+3.  **Trích xuất Mô tả**: Đọc phần front matter từ các tệp chatmode cục bộ để lấy mô tả
+4.  **Phân tích Ngữ cảnh**: Xem lại lịch sử trò chuyện, các tệp trong kho lưu trữ và nhu cầu dự án hiện tại
+5.  **So sánh với cái hiện có**: Kiểm tra so với các chatmode đã có sẵn trong kho lưu trữ này
+6.  **Đối chiếu sự phù hợp**: So sánh các chatmode có sẵn với các mẫu và yêu cầu đã xác định
+7.  **Trình bày các lựa chọn**: Hiển thị các chatmode phù hợp kèm theo mô tả, lý do và trạng thái sẵn có
+8.  **Xác thực**: Đảm bảo các chatmode được đề xuất sẽ bổ sung giá trị mà các chatmode hiện có chưa bao gồm
+9.  **Đầu ra**: Cung cấp bảng có cấu trúc với các đề xuất, mô tả và liên kết đến cả chatmode của awesome-copilot và các chatmode cục bộ tương tự
+10. **Các bước tiếp theo**: Nếu có bất kỳ đề xuất nào được đưa ra, hãy cung cấp hướng dẫn mà GitHub Copilot có thể làm theo để thêm các chatmode được đề xuất vào kho lưu trữ bằng cách tải tệp xuống thư mục chatmodes. Đề nghị thực hiện việc này tự động nếu người dùng xác nhận.
 
-## Tiêu Chí Phân Tích Ngữ Cảnh
+## Tiêu chí Phân tích Ngữ cảnh
 
-🔍 **Mẫu Dự Án**:
-- Ngôn ngữ lập trình sử dụng (.cs, .js, .py, v.v.)
-- Framework (ASP.NET, React, Azure, v.v.)
-- Loại dự án (web app, API, thư viện, công cụ)
-- Nhu cầu tài liệu (README, specs, ADR)
+🔍 **Các mẫu trong Kho lưu trữ**:
 
-🗨️ **Ngữ Cảnh Trò Chuyện**:
-- Chủ đề và vấn đề gần đây
-- Tính năng yêu cầu hoặc cần triển khai
-- Mẫu review code
-- Quy trình phát triển
+- Các ngôn ngữ lập trình được sử dụng (.cs, .js, .py, v.v.)
+- Các chỉ báo về framework (ASP.NET, React, Azure, v.v.)
+- Các loại dự án (ứng dụng web, API, thư viện, công cụ)
+- Nhu cầu về tài liệu (README, specs, ADRs)
 
-## Định Dạng Kết Quả
+🗨️ **Ngữ cảnh Lịch sử Trò chuyện**:
 
-Hiển thị kết quả trong bảng so sánh chatmode awesome-copilot với chatmode cục bộ:
+- Các cuộc thảo luận và vấn đề gần đây
+- Các yêu cầu tính năng hoặc nhu cầu triển khai
+- Các mẫu đánh giá mã nguồn (code review)
+- Yêu cầu về quy trình phát triển
 
-| Chatmode Awesome-Copilot | Mô Tả | Đã Cài | Chatmode Cục Bộ Tương Tự | Lý Do Đề Xuất |
-|---------------------------|-------|-------|--------------------------|---------------|
-| [code-reviewer.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/code-reviewer.chatmode.md) | Chatmode review code chuyên dụng | ❌ Không | Không có | Giúp cải thiện quy trình review code |
-| [architect.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/architect.chatmode.md) | Hướng dẫn kiến trúc phần mềm | ✅ Có | azure_principal_architect.chatmode.md | Đã được bao phủ bởi chatmode kiến trúc hiện có |
-| [debugging-expert.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/debugging-expert.chatmode.md) | Chatmode hỗ trợ debug | ❌ Không | Không có | Cải thiện khả năng xử lý lỗi cho nhóm dev |
+## Định dạng Đầu ra
 
-## Quy Trình Tìm Chatmode Cục Bộ
+Hiển thị kết quả phân tích trong bảng có cấu trúc so sánh các chatmode của awesome-copilot với các chatmode hiện có trong kho lưu trữ:
 
-1. Liệt kê tất cả tệp `*.chatmode.md` trong `.github/chatmodes/`
-2. Đọc front matter để trích mô tả
-3. Tạo danh sách chatmode hiện có
-4. So sánh để tránh đề xuất trùng lặp
+| Chatmode của Awesome-Copilot                                                                                               | Mô tả                                     | Đã cài đặt | Chatmode cục bộ tương tự              | Lý do đề xuất                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ---------- | ------------------------------------- | ---------------------------------------------------------------------------- |
+| [code-reviewer.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/code-reviewer.chatmode.md)       | Chatmode chuyên dụng để đánh giá mã nguồn | ❌ Không   | Không có                              | Sẽ nâng cao quy trình phát triển với sự hỗ trợ đánh giá mã nguồn chuyên dụng |
+| [architect.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/architect.chatmode.md)               | Hướng dẫn về kiến trúc phần mềm           | ✅ Có      | azure_principal_architect.chatmode.md | Đã được bao gồm bởi các chatmode kiến trúc hiện có                           |
+| [debugging-expert.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/debugging-expert.chatmode.md) | Chatmode hỗ trợ gỡ lỗi                    | ❌ Không   | Không có                              | Có thể cải thiện hiệu quả khắc phục sự cố cho nhóm phát triển                |
 
-## Yêu Cầu
+## Quy trình Khám phá Chatmode Cục bộ
 
-- Dùng `githubRepo` để lấy nội dung thư mục chatmodes từ kho awesome-copilot
-- Quét hệ thống file cục bộ để tìm chatmode trong `.github/chatmodes/`
-- Đọc YAML front matter để lấy mô tả
-- So sánh với chatmode đã có để tránh trùng
-- Tập trung vào các khoảng trống chưa có chatmode bao phủ
-- Đảm bảo phù hợp với mục tiêu dự án
-- Cung cấp lý do rõ ràng cho từng đề xuất
-- Kèm liên kết đến cả chatmode awesome-copilot và chatmode cục bộ tương tự
-- Không thêm thông tin ngoài bảng và phân tích
+1.  Liệt kê tất cả các tệp `*.chatmode.md` trong thư mục `.github/chatmodes/`
+2.  Đối với mỗi tệp được phát hiện, đọc phần front matter để trích xuất `description`
+3.  Xây dựng một danh sách đầy đủ các chatmode hiện có
+4.  Sử dụng danh sách này để tránh đề xuất các bản sao
 
-## Tham Chiếu Biểu Tượng
+## Yêu cầu
 
-- ✅ Đã cài trong repo
-- ❌ Chưa cài trong repo
+- Sử dụng công cụ `githubRepo` để lấy nội dung từ thư mục chatmodes của kho lưu trữ awesome-copilot
+- Quét hệ thống tệp cục bộ để tìm các chatmode hiện có trong thư mục `.github/chatmodes/`
+- Đọc phần front matter YAML từ các tệp chatmode cục bộ để trích xuất mô tả
+- So sánh với các chatmode hiện có trong kho lưu trữ này để tránh trùng lặp
+- Tập trung vào những khoảng trống trong phạm vi của thư viện chatmode hiện tại
+- Xác thực rằng các chatmode được đề xuất phù hợp với mục đích và tiêu chuẩn của kho lưu trữ
+- Cung cấp lý do rõ ràng cho mỗi đề xuất
+- Bao gồm các liên kết đến cả chatmode của awesome-copilot và các chatmode cục bộ tương tự
+- Không cung cấp bất kỳ thông tin hoặc ngữ cảnh bổ sung nào ngoài bảng và phân tích
+
+## Tham chiếu Biểu tượng
+
+- ✅ Đã được cài đặt trong kho lưu trữ
+- ❌ Chưa được cài đặt trong kho lưu

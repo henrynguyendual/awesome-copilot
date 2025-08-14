@@ -1,66 +1,49 @@
-# Thực hành tốt nhất khi viết test JavaScript/TypeScript với Jest
+---
+description: "Các phương pháp hay nhất để viết test JavaScript/TypeScript bằng Jest, bao gồm các chiến lược mocking, cấu trúc test và các mẫu phổ biến."
+---
 
-## Cấu trúc bài test
+### Cấu trúc Test
 
--   Đặt tên file test với hậu tố `.test.ts` hoặc `.test.js`.
+- Đặt tên file test với hậu tố `.test.ts` hoặc `.test.js`
+- Đặt file test bên cạnh code mà nó kiểm thử hoặc trong một thư mục `__tests__` riêng
+- Sử dụng tên test mang tính mô tả, giải thích hành vi mong đợi
+- Sử dụng các khối `describe` lồng nhau để tổ chức các test liên quan
+- Tuân theo mẫu: `describe('Component/Function/Class', () => { it('nên làm gì đó', () => {}) })`
 
--   Đặt file test cạnh file code hoặc trong thư mục `__tests__` riêng.
+### Mocking hiệu quả
 
--   Sử dụng tên test mô tả rõ hành vi mong đợi.
+- Mock các phụ thuộc bên ngoài (API, cơ sở dữ liệu, v.v.) để cô lập các bài test của bạn
+- Sử dụng `jest.mock()` cho các mock ở cấp độ module
+- Sử dụng `jest.spyOn()` cho các mock hàm cụ thể
+- Sử dụng `mockImplementation()` hoặc `mockReturnValue()` để định nghĩa hành vi của mock
+- Reset các mock giữa các bài test bằng `jest.resetAllMocks()` trong `afterEach`
 
--   Sử dụng các khối `describe` lồng nhau để nhóm các test liên quan.
+### Kiểm thử mã bất đồng bộ (Async Code)
 
--   Theo mẫu:
+- Luôn trả về promise hoặc sử dụng cú pháp async/await trong các bài test
+- Sử dụng các matcher `resolves`/`rejects` cho promise
+- Đặt thời gian chờ (timeout) thích hợp cho các bài test chạy chậm bằng `jest.setTimeout()`
 
-    ``` javascript
-    describe('Component/Function/Class', () => {
-      it('should do something', () => {})
-    })
-    ```
+### Kiểm thử Snapshot
 
-## Mocking hiệu quả
+- Sử dụng kiểm thử snapshot cho các thành phần UI hoặc các đối tượng phức tạp ít khi thay đổi
+- Giữ cho snapshot nhỏ và tập trung
+- Xem xét các thay đổi của snapshot một cách cẩn thận trước khi commit
 
--   Mock các dependency bên ngoài (API, DB, ...) để tách biệt test.
--   Dùng `jest.mock()` để mock ở cấp module.
--   Dùng `jest.spyOn()` để mock một hàm cụ thể.
--   Dùng `mockImplementation()` hoặc `mockReturnValue()` để định nghĩa
-    hành vi mock.
--   Reset mock giữa các test với `jest.resetAllMocks()` trong
-    `afterEach`.
+### Kiểm thử Component React
 
-## Kiểm thử async code
+- Sử dụng React Testing Library thay vì Enzyme để kiểm thử component
+- Kiểm thử hành vi người dùng và khả năng truy cập của component
+- Truy vấn các phần tử theo vai trò truy cập (accessibility roles), nhãn (labels), hoặc nội dung văn bản (text content)
+- Sử dụng `userEvent` thay vì `fireEvent` để có các tương tác người dùng thực tế hơn
 
--   Luôn return promise hoặc dùng async/await trong test.
--   Sử dụng matcher `resolves`/`rejects` cho promise.
--   Thiết lập timeout phù hợp cho test chậm với `jest.setTimeout()`.
+## Các Matcher phổ biến của Jest
 
-## Snapshot Testing
-
--   Sử dụng snapshot cho UI component hoặc object phức tạp thay đổi ít.
--   Giữ snapshot nhỏ và tập trung.
--   Kiểm tra kỹ snapshot trước khi commit.
-
-## Kiểm thử React Component
-
--   Ưu tiên React Testing Library thay vì Enzyme.
--   Kiểm thử hành vi người dùng và khả năng truy cập (accessibility).
--   Query element bằng role, label hoặc text content.
--   Dùng `userEvent` thay vì `fireEvent` để mô phỏng tương tác thực tế
-    hơn.
-
-## Matcher phổ biến trong Jest
-
--   **Cơ bản:** `expect(value).toBe(expected)`,
-    `expect(value).toEqual(expected)`
--   **Truthy/Falsy:** `expect(value).toBeTruthy()`,
-    `expect(value).toBeFalsy()`
--   **Số:** `expect(value).toBeGreaterThan(3)`,
-    `expect(value).toBeLessThanOrEqual(3)`
--   **Chuỗi:** `expect(value).toMatch(/pattern/)`,
-    `expect(value).toContain('substring')`
--   **Mảng:** `expect(array).toContain(item)`,
-    `expect(array).toHaveLength(3)`
--   **Object:** `expect(object).toHaveProperty('key', value)`
--   **Ngoại lệ:** `expect(fn).toThrow()`, `expect(fn).toThrow(Error)`
--   **Hàm mock:** `expect(mockFn).toHaveBeenCalled()`,
-    `expect(mockFn).toHaveBeenCalledWith(arg1, arg2)`
+- Cơ bản: `expect(value).toBe(expected)`, `expect(value).toEqual(expected)`
+- Kiểm tra tính đúng/sai (Truthiness): `expect(value).toBeTruthy()`, `expect(value).toBeFalsy()`
+- Số: `expect(value).toBeGreaterThan(3)`, `expect(value).toBeLessThanOrEqual(3)`
+- Chuỗi: `expect(value).toMatch(/pattern/)`, `expect(value).toContain('substring')`
+- Mảng: `expect(array).toContain(item)`, `expect(array).toHaveLength(3)`
+- Đối tượng: `expect(object).toHaveProperty('key', value)`
+- Ngoại lệ: `expect(fn).toThrow()`, `expect(fn).toThrow(Error)`
+- Hàm mock: `expect(mockFn).toHaveBeenCalled()`, `expect(mockFn).toHaveBeenCalledWith(arg1, arg2)`

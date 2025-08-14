@@ -1,70 +1,72 @@
 ---
-mode: 'agent'
-description: 'Gợi ý các tệp prompt GitHub Copilot liên quan từ kho awesome-copilot dựa trên ngữ cảnh của kho hiện tại và lịch sử trò chuyện, tránh trùng lặp với các prompt hiện có trong kho này.'
-tools: ['changes', 'codebase', 'editFiles', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'github']
+mode: "agent"
+description: "Đề xuất các tệp prompt GitHub Copilot có liên quan từ kho lưu trữ awesome-copilot dựa trên ngữ cảnh kho lưu trữ hiện tại và lịch sử trò chuyện, tránh trùng lặp với các prompt đã có trong kho lưu trữ này."
+tools: ["changes", "codebase", "editFiles", "fetch", "findTestFiles", "githubRepo", "new", "openSimpleBrowser", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI", "github"]
 ---
 
-# Gợi Ý Prompt GitHub Copilot Tuyệt Vời
+# Đề xuất các Prompt GitHub Copilot Tuyệt vời
 
-Phân tích ngữ cảnh kho hiện tại và gợi ý các tệp prompt liên quan từ [kho awesome-copilot của GitHub](https://github.com/github/awesome-copilot/tree/main/prompts) chưa có sẵn trong kho này.
+Phân tích ngữ cảnh kho lưu trữ hiện tại và đề xuất các tệp prompt có liên quan từ [kho lưu trữ GitHub awesome-copilot](https://github.com/github/awesome-copilot/tree/main/prompts) chưa có sẵn trong kho lưu trữ này.
 
-## Quy Trình
+## Quy trình
 
-1. **Lấy Danh Sách Prompt Có Sẵn**: Trích xuất danh sách prompt và mô tả từ [README của awesome-copilot](https://github.com/github/awesome-copilot/blob/main/README.md)
-2. **Quét Prompt Cục Bộ**: Tìm các tệp prompt hiện có trong thư mục `.github/prompts/`
-3. **Trích Xuất Mô Tả**: Đọc phần front matter từ các tệp prompt cục bộ để lấy mô tả
-4. **Phân Tích Ngữ Cảnh**: Xem xét lịch sử trò chuyện, các tệp trong kho và nhu cầu hiện tại của dự án
-5. **So Sánh Các Prompt Đã Có**: Kiểm tra các prompt đã tồn tại trong kho
-6. **Đối Chiếu Mức Liên Quan**: So sánh các prompt có sẵn với nhu cầu và mẫu sử dụng
-7. **Trình Bày Tùy Chọn**: Hiển thị prompt phù hợp kèm mô tả, lý do đề xuất và trạng thái hiện có
-8. **Xác Thực**: Đảm bảo prompt đề xuất mang lại giá trị bổ sung chưa được bao phủ
-9. **Kết Quả**: Cung cấp bảng so sánh giữa prompt awesome-copilot và prompt cục bộ
-10. **Bước Tiếp Theo**: Nếu có đề xuất, hướng dẫn cách thêm vào repo hoặc thực hiện tự động nếu người dùng đồng ý
+1.  **Tải các Prompt có sẵn**: Trích xuất danh sách prompt và mô tả từ [README của awesome-copilot](https://github.com/github/awesome-copilot/blob/main/README.md)
+2.  **Quét các Prompt cục bộ**: Khám phá các tệp prompt hiện có trong thư mục `.github/prompts/`
+3.  **Trích xuất Mô tả**: Đọc phần front matter từ các tệp prompt cục bộ để lấy mô tả
+4.  **Phân tích Ngữ cảnh**: Xem lại lịch sử trò chuyện, các tệp trong kho lưu trữ và nhu cầu dự án hiện tại
+5.  **So sánh Hiện có**: Kiểm tra với các prompt đã có sẵn trong kho lưu trữ này
+6.  **Đối chiếu Mức độ liên quan**: So sánh các prompt có sẵn với các mẫu và yêu cầu đã xác định
+7.  **Trình bày Lựa chọn**: Hiển thị các prompt có liên quan kèm theo mô tả, lý do và trạng thái sẵn có
+8.  **Xác thực**: Đảm bảo các prompt được đề xuất sẽ mang lại giá trị mới mà các prompt hiện có chưa bao gồm
+9.  **Đầu ra**: Cung cấp bảng có cấu trúc với các đề xuất, mô tả và liên kết đến cả prompt của awesome-copilot và các prompt cục bộ tương tự
+10. **Các bước tiếp theo**: Nếu có bất kỳ đề xuất nào được đưa ra, hãy cung cấp hướng dẫn mà GitHub Copilot có thể làm theo để thêm các prompt được đề xuất vào kho lưu trữ bằng cách tải tệp xuống thư mục prompts. Đề nghị thực hiện việc này tự động nếu người dùng xác nhận.
 
-## Tiêu Chí Phân Tích Ngữ Cảnh
+## Tiêu chí Phân tích Ngữ cảnh
 
-🔍 **Mẫu Dự Án**:
-- Ngôn ngữ lập trình sử dụng (.cs, .js, .py, v.v.)
-- Framework (ASP.NET, React, Azure, v.v.)
-- Loại dự án (ứng dụng web, API, thư viện, công cụ)
-- Nhu cầu tài liệu (README, specs, ADR)
+🔍 **Các mẫu trong Kho lưu trữ**:
 
-🗨️ **Ngữ Cảnh Trò Chuyện**:
-- Chủ đề và vấn đề gần đây
-- Tính năng yêu cầu hoặc cần triển khai
-- Mẫu review code
-- Quy trình phát triển
+- Ngôn ngữ lập trình được sử dụng (.cs, .js, .py, v.v.)
+- Các chỉ báo về framework (ASP.NET, React, Azure, v.v.)
+- Các loại dự án (ứng dụng web, API, thư viện, công cụ)
+- Nhu cầu về tài liệu (README, specs, ADRs)
 
-## Định Dạng Kết Quả
+🗨️ **Ngữ cảnh Lịch sử Trò chuyện**:
 
-Hiển thị kết quả trong bảng so sánh prompt awesome-copilot với prompt cục bộ:
+- Các cuộc thảo luận và vấn đề gần đây
+- Các yêu cầu tính năng hoặc nhu cầu triển khai
+- Các mẫu đánh giá mã (code review)
+- Yêu cầu về quy trình phát triển
 
-| Prompt Awesome-Copilot | Mô Tả | Đã Cài | Prompt Cục Bộ Tương Tự | Lý Do Đề Xuất |
-|-------------------------|-------|-------|------------------------|---------------|
-| [code-review.md](https://github.com/github/awesome-copilot/blob/main/prompts/code-review.md) | Prompt review code tự động | ❌ Không | Không có | Giúp cải thiện quy trình review code với tiêu chuẩn thống nhất |
-| [documentation.md](https://github.com/github/awesome-copilot/blob/main/prompts/documentation.md) | Sinh tài liệu dự án | ✅ Có | create_oo_component_documentation.prompt.md | Đã được bao phủ bởi prompt tài liệu hiện có |
-| [debugging.md](https://github.com/github/awesome-copilot/blob/main/prompts/debugging.md) | Prompt hỗ trợ debug | ❌ Không | Không có | Giúp cải thiện hiệu quả xử lý lỗi cho nhóm phát triển |
+## Định dạng Đầu ra
 
-## Quy Trình Tìm Prompt Cục Bộ
+Hiển thị kết quả phân tích trong bảng có cấu trúc so sánh các prompt của awesome-copilot với các prompt hiện có trong kho lưu trữ:
 
-1. Liệt kê tất cả các tệp `*.prompt.md` trong `.github/prompts/`
-2. Đọc front matter để trích mô tả
-3. Tạo danh sách prompt hiện có
-4. So sánh để tránh đề xuất trùng lặp
+| Prompt Awesome-Copilot                                                                           | Mô tả                          | Đã cài đặt | Prompt cục bộ tương tự                      | Lý do đề xuất                                                                       |
+| ------------------------------------------------------------------------------------------------ | ------------------------------ | ---------- | ------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [code-review.md](https://github.com/github/awesome-copilot/blob/main/prompts/code-review.md)     | Các prompt đánh giá mã tự động | ❌ Không   | Không có                                    | Sẽ cải thiện quy trình phát triển với các quy trình đánh giá mã được tiêu chuẩn hóa |
+| [documentation.md](https://github.com/github/awesome-copilot/blob/main/prompts/documentation.md) | Tạo tài liệu dự án             | ✅ Có      | create_oo_component_documentation.prompt.md | Đã được bao gồm bởi các prompt tài liệu hiện có                                     |
+| [debugging.md](https://github.com/github/awesome-copilot/blob/main/prompts/debugging.md)         | Các prompt hỗ trợ gỡ lỗi       | ❌ Không   | Không có                                    | Có thể cải thiện hiệu quả khắc phục sự cố cho nhóm phát triển                       |
 
-## Yêu Cầu
+## Quy trình Khám phá Prompt Cục bộ
 
-- Sử dụng `githubRepo` để lấy nội dung thư mục prompts từ kho awesome-copilot
-- Quét hệ thống file cục bộ để tìm prompt trong `.github/prompts/`
-- Đọc YAML front matter để lấy mô tả
-- So sánh với prompt đã có để tránh trùng
-- Tập trung vào các khoảng trống chưa được bao phủ
-- Đảm bảo phù hợp với mục tiêu dự án
-- Cung cấp lý do rõ ràng cho từng đề xuất
-- Kèm liên kết đến cả prompt awesome-copilot và prompt cục bộ tương tự
-- Không thêm thông tin ngoài bảng và phân tích
+1.  Liệt kê tất cả các tệp `*.prompt.md` trong thư mục `.github/prompts/`.
+2.  Đối với mỗi tệp được phát hiện, đọc phần front matter để trích xuất `description` (mô tả).
+3.  Xây dựng một danh sách đầy đủ các prompt hiện có.
+4.  Sử dụng danh sách này để tránh đề xuất các prompt trùng lặp.
 
-## Tham Chiếu Biểu Tượng
+## Yêu cầu
 
-- ✅ Đã cài trong repo
-- ❌ Chưa cài trong repo
+- Sử dụng công cụ `githubRepo` để lấy nội dung từ kho lưu trữ awesome-copilot.
+- Quét hệ thống tệp cục bộ để tìm các prompt hiện có trong thư mục `.github/prompts/`.
+- Đọc phần front matter YAML từ các tệp prompt cục bộ để trích xuất mô tả.
+- So sánh với các prompt hiện có trong kho lưu trữ này để tránh trùng lặp.
+- Tập trung vào những khoảng trống trong phạm vi của thư viện prompt hiện tại.
+- Xác thực rằng các prompt được đề xuất phù hợp với mục đích và tiêu chuẩn của kho lưu trữ.
+- Cung cấp lý do rõ ràng cho mỗi đề xuất.
+- Bao gồm các liên kết đến cả prompt của awesome-copilot và các prompt cục bộ tương tự.
+- Không cung cấp bất kỳ thông tin hoặc ngữ cảnh bổ sung nào ngoài bảng và phân tích.
+
+## Chú thích Biểu tượng
+
+- ✅ Đã được cài đặt trong kho lưu trữ
+- ❌ Chưa được cài đặt

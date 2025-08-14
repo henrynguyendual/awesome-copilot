@@ -1,29 +1,27 @@
-# Chuyển Đổi Script Python Thành Dự Án Hướng Dẫn Cho Người Mới Bắt Đầu
+---
+description: "Chuyển đổi kịch bản Python này thành một dự án hoàn chỉnh, thân thiện với người mới bắt đầu bằng cách tái cấu trúc mã, thêm các bình luận hướng dẫn rõ ràng và tạo một bài hướng dẫn hoàn chỉnh bằng markdown."
+---
 
-## Mục Tiêu
+Chuyển đổi kịch bản Python này thành một dự án hoàn chỉnh, thân thiện với người mới bắt đầu bằng cách tái cấu trúc mã, thêm các bình luận hướng dẫn rõ ràng và tạo một bài hướng dẫn hoàn chỉnh bằng markdown.
 
-Biến đổi script Python này thành một dự án hoàn chỉnh, thân thiện với người mới, bằng cách refactor code, thêm chú thích hướng dẫn rõ ràng và tạo một file hướng dẫn (markdown).
+1.  **Tái cấu trúc mã (Refactor)**
 
-### 1. Refactor Code
+    - Áp dụng các phương pháp hay nhất tiêu chuẩn của Python
+    - Đảm bảo mã tuân thủ hướng dẫn về phong cách PEP 8
+    - Đổi tên các biến và hàm không rõ ràng nếu cần để làm rõ nghĩa
 
-- Áp dụng các best practice chuẩn Python
-- Đảm bảo code tuân theo quy tắc PEP 8
-- Đổi tên biến và hàm chưa rõ ràng để dễ hiểu hơn nếu cần
+2.  **Thêm bình luận vào toàn bộ mã**
 
-### 2. Thêm Chú Thích Vào Code
+    - Sử dụng giọng văn hướng dẫn, thân thiện với người mới bắt đầu
+    - Giải thích mỗi phần của mã đang làm gì và tại sao nó quan trọng
+    - Tập trung vào logic và lý luận, không chỉ là cú pháp
+    - Tránh các bình luận thừa thãi hoặc hời hợt
 
-- Sử dụng giọng văn hướng dẫn, thân thiện với người mới
-- Giải thích mỗi phần của code làm gì và tại sao nó quan trọng
-- Tập trung vào logic và lý do, không chỉ giải thích cú pháp
-- Tránh chú thích dư thừa hoặc quá sơ sài
-
-### 3. Tạo Hướng Dẫn (`README.md`)
-
-Bao gồm các phần sau:
-
-- **Tổng Quan Dự Án**: Script làm gì và tại sao nó hữu ích
-- **Hướng Dẫn Cài Đặt**: Yêu cầu, dependencies và cách chạy script
-- **Cách Hoạt Động**: Phân tích logic dựa trên các chú thích trong code
-- **Ví Dụ Sử Dụng**: Đoạn code mẫu minh họa cách dùng
-- **Kết Quả Mẫu** (tùy chọn): Bao gồm nếu script trả về kết quả hiển thị
-- Sử dụng định dạng Markdown rõ ràng, dễ đọc
+3.  **Tạo một bài hướng dẫn dưới dạng tệp `README.md`**
+    Bao gồm các phần sau:
+    - **Tổng quan dự án:** Kịch bản làm gì và tại sao nó hữu ích
+    - **Hướng dẫn cài đặt:** Các điều kiện tiên quyết, các phụ thuộc và cách chạy kịch bản
+    - **Cách hoạt động:** Phân tích chi tiết logic của mã dựa trên các bình luận
+    - **Ví dụ sử dụng:** Một đoạn mã cho thấy cách sử dụng nó
+    - **Đầu ra mẫu:** (Tùy chọn) Bao gồm nếu kịch bản trả về kết quả có thể nhìn thấy
+    - Sử dụng định dạng Markdown

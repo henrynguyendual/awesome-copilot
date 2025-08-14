@@ -1,120 +1,132 @@
+---
+mode: "agent"
+description: "Prompt để tạo kế hoạch triển khai tính năng chi tiết, theo cấu trúc monorepo của Epoch."
+---
+
 # Prompt Kế Hoạch Triển Khai Tính Năng
 
 ## Mục Tiêu
 
-Đóng vai trò là kỹ sư phần mềm kỳ cựu trong ngành, chịu trách nhiệm xây dựng các tính năng chất lượng cao cho các công ty SaaS quy mô lớn. Xuất sắc trong việc tạo kế hoạch triển khai kỹ thuật chi tiết cho các tính năng dựa trên PRD của tính năng.
-Xem xét ngữ cảnh đã cung cấp và xuất ra một kế hoạch triển khai toàn diện, đầy đủ.
-**Lưu ý:** KHÔNG viết code trong output, trừ khi là pseudocode cho các tình huống kỹ thuật.
+Đóng vai một kỹ sư phần mềm kỳ cựu trong ngành, chịu trách nhiệm tạo ra các tính năng có độ tương tác cao cho các công ty SaaS quy mô lớn. Xuất sắc trong việc tạo ra các kế hoạch triển khai kỹ thuật chi tiết cho các tính năng dựa trên một PRD (Tài liệu Yêu cầu Sản phẩm) của Tính năng.
+Xem xét bối cảnh được cung cấp và đưa ra một kế hoạch triển khai đầy đủ, toàn diện.
+**Lưu ý:** KHÔNG viết mã trong đầu ra trừ khi đó là mã giả cho các tình huống kỹ thuật.
 
-## Định Dạng Output
+## Định Dạng Đầu Ra
 
-Output sẽ là một kế hoạch triển khai hoàn chỉnh ở định dạng Markdown, lưu tại `/docs/ways-of-work/plan/{epic-name}/{feature-name}/implementation-plan.md`.
+Đầu ra phải là một kế hoạch triển khai hoàn chỉnh ở định dạng Markdown, được lưu vào `/docs/ways-of-work/plan/{tên-epic}/{tên-tính-năng}/implementation-plan.md`.
 
-### Cấu Trúc Thư Mục
+### Hệ Thống Tệp
 
-Cấu trúc thư mục và file cho cả front-end và back-end theo chuẩn monorepo của Epoch:
+Cấu trúc thư mục và tệp cho cả kho mã nguồn front-end và back-end theo cấu trúc monorepo của Epoch:
 
 ```
 apps/
-  [app-name]/
+  [tên-ứng-dụng]/
 services/
-  [service-name]/
+  [tên-dịch-vụ]/
 packages/
-  [package-name]/
+  [tên-gói]/
 ```
 
 ### Kế Hoạch Triển Khai
 
-Cho mỗi tính năng:
+Đối với mỗi tính năng:
 
 #### Mục Tiêu
 
-Mô tả mục tiêu tính năng (3-5 câu).
+Mô tả mục tiêu của tính năng (3-5 câu)
 
 #### Yêu Cầu
 
-- Danh sách chi tiết các yêu cầu của tính năng (gạch đầu dòng)
-- Cụ thể hóa kế hoạch triển khai
+- Yêu cầu chi tiết của tính năng (danh sách gạch đầu dòng)
+- Chi tiết kế hoạch triển khai
 
-#### Yếu Tố Kỹ Thuật
+#### Cân Nhắc Kỹ Thuật
 
 ##### Tổng Quan Kiến Trúc Hệ Thống
 
-Tạo sơ đồ kiến trúc hệ thống toàn diện bằng Mermaid cho thấy cách tính năng này tích hợp vào toàn hệ thống. Sơ đồ cần bao gồm:
+Tạo một sơ đồ kiến trúc hệ thống toàn diện bằng Mermaid cho thấy cách tính năng này tích hợp vào hệ thống tổng thể. Sơ đồ nên bao gồm:
 
-- **Tầng Frontend**: Thành phần giao diện, quản lý state, logic phía client.
-- **Tầng API**: Endpoint tRPC, middleware xác thực, xác thực đầu vào, định tuyến request.
-- **Tầng Business Logic**: Lớp dịch vụ, quy tắc nghiệp vụ, điều phối workflow, xử lý sự kiện.
-- **Tầng Dữ Liệu**: Tương tác DB, cơ chế cache, tích hợp API bên ngoài.
-- **Tầng Hạ Tầng**: Docker container, dịch vụ nền, thành phần triển khai.
+- **Lớp Frontend**: Các thành phần giao diện người dùng, quản lý trạng thái và logic phía máy khách
+- **Lớp API**: Các endpoint tRPC, middleware xác thực, xác thực đầu vào và định tuyến yêu cầu
+- **Lớp Logic Nghiệp Vụ**: Các lớp dịch vụ, quy tắc nghiệp vụ, điều phối quy trình làm việc và xử lý sự kiện
+- **Lớp Dữ Liệu**: Tương tác cơ sở dữ liệu, cơ chế bộ nhớ đệm và tích hợp API bên ngoài
+- **Lớp Cơ Sở Hạ Tầng**: Các container Docker, dịch vụ nền và các thành phần triển khai
 
-Sử dụng subgraph để phân tách rõ các tầng. Thể hiện luồng dữ liệu giữa các tầng với mũi tên có nhãn mô tả kiểu request/response, biến đổi dữ liệu, luồng sự kiện. Bao gồm các thành phần, dịch vụ hoặc cấu trúc dữ liệu đặc thù cho tính năng này.
+Sử dụng các đồ thị con (subgraphs) để tổ chức các lớp này một cách rõ ràng. Hiển thị luồng dữ liệu giữa các lớp bằng các mũi tên được dán nhãn chỉ ra các mẫu yêu cầu/phản hồi, chuyển đổi dữ liệu và luồng sự kiện. Bao gồm bất kỳ thành phần, dịch vụ hoặc cấu trúc dữ liệu cụ thể nào của tính năng mà là duy nhất cho việc triển khai này.
 
-- **Lựa Chọn Công Nghệ**: Giải thích lý do chọn cho từng tầng
-- **Điểm Tích Hợp**: Xác định ranh giới và giao tiếp rõ ràng
-- **Kiến Trúc Triển Khai**: Chiến lược Docker containerization
-- **Khả Năng Mở Rộng**: Chiến lược mở rộng ngang và dọc
+- **Lựa Chọn Ngăn Xếp Công Nghệ**: Ghi lại lý do lựa chọn cho mỗi lớp
 
-##### Thiết Kế Lược Đồ CSDL
+```
 
-Tạo ERD bằng Mermaid thể hiện mô hình dữ liệu của tính năng:
+- **Lựa Chọn Ngăn Xếp Công Nghệ**: Ghi lại lý do lựa chọn cho mỗi lớp
+- **Điểm Tích Hợp**: Xác định ranh giới rõ ràng và các giao thức giao tiếp
+- **Kiến Trúc Triển Khai**: Chiến lược container hóa bằng Docker
+- **Cân Nhắc Về Khả Năng Mở Rộng**: Các phương pháp mở rộng theo chiều ngang và chiều dọc
 
-- **Đặc Tả Bảng**: Chi tiết các trường với kiểu và ràng buộc
-- **Chiến Lược Indexing**: Index quan trọng và lý do
-- **Quan Hệ Khóa Ngoại**: Tính toàn vẹn dữ liệu
-- **Chiến Lược Migration**: Quản lý version và triển khai
+##### Thiết Kế Lược Đồ Cơ Sở Dữ Liệu
+
+Tạo một sơ đồ quan hệ thực thể bằng Mermaid hiển thị mô hình dữ liệu của tính năng:
+
+- **Thông Số Kỹ Thuật Bảng**: Định nghĩa chi tiết các trường với kiểu dữ liệu và ràng buộc
+- **Chiến Lược Đánh Chỉ Mục**: Các chỉ mục quan trọng về hiệu suất và lý do của chúng
+- **Quan Hệ Khóa Ngoại**: Tính toàn vẹn dữ liệu và các ràng buộc tham chiếu
+- **Chiến Lược Di Chuyển Cơ Sở Dữ Liệu**: Kiểm soát phiên bản và phương pháp triển khai
 
 ##### Thiết Kế API
 
-- Endpoint với đặc tả đầy đủ
-- Định dạng request/response kèm type TypeScript
-- Xác thực và phân quyền với Stack Auth
+- Các endpoint với thông số kỹ thuật đầy đủ
+- Định dạng yêu cầu/phản hồi với các kiểu TypeScript
+- Xác thực và ủy quyền với Stack Auth
 - Chiến lược xử lý lỗi và mã trạng thái
-- Giới hạn tần suất và chiến lược cache
+- Chiến lược giới hạn tốc độ và bộ nhớ đệm
 
 ##### Kiến Trúc Frontend
 
 ###### Tài Liệu Phân Cấp Thành Phần
 
-Cấu trúc thành phần sẽ sử dụng thư viện `shadcn/ui` để đảm bảo tính nhất quán và khả năng truy cập.
+Cấu trúc thành phần sẽ tận dụng thư viện `shadcn/ui` để có một nền tảng nhất quán và dễ tiếp cận.
 
-**Cấu Trúc Giao Diện:**
+**Cấu Trúc Bố Cục:**
 
 ```
-Recipe Library Page
-├── Header Section (shadcn: Card)
-│   ├── Title (shadcn: Typography `h1`)
-│   ├── Add Recipe Button (shadcn: Button với DropdownMenu)
-│   │   ├── Manual Entry (DropdownMenuItem)
-│   │   ├── Import from URL (DropdownMenuItem)
-│   │   └── Import from PDF (DropdownMenuItem)
-│   └── Search Input (shadcn: Input with icon)
-├── Main Content Area (flex container)
-│   ├── Filter Sidebar (aside)
-│   │   ├── Filter Title (shadcn: Typography `h4`)
-│   │   ├── Category Filters (shadcn: Checkbox group)
-│   │   ├── Cuisine Filters (shadcn: Checkbox group)
-│   │   └── Difficulty Filters (shadcn: RadioGroup)
-│   └── Recipe Grid (main)
-│       └── Recipe Card (shadcn: Card)
-│           ├── Recipe Image (img)
-│           ├── Recipe Title (shadcn: Typography `h3`)
-│           ├── Recipe Tags (shadcn: Badge)
-│           └── Quick Actions (shadcn: Button - View, Edit)
+
+Trang Thư Viện Công Thức
+├── Phần Tiêu Đề (shadcn: Card)
+│ ├── Tiêu Đề (shadcn: Typography `h1`)
+│ ├── Nút Thêm Công Thức (shadcn: Button với DropdownMenu)
+│ │ ├── Nhập Thủ Công (DropdownMenuItem)
+│ │ ├── Nhập từ URL (DropdownMenuItem)
+│ │ └── Nhập từ PDF (DropdownMenuItem)
+│ └── Ô Tìm Kiếm (shadcn: Input với biểu tượng)
+├── Khu Vực Nội Dung Chính (flex container)
+│ ├── Thanh Bên Lọc (aside)
+│ │ ├── Tiêu Đề Lọc (shadcn: Typography `h4`)
+│ │ ├── Bộ Lọc Danh Mục (shadcn: Nhóm Checkbox)
+│ │ ├── Bộ Lọc Ẩm Thực (shadcn: Nhóm Checkbox)
+│ │ └── Bộ Lọc Độ Khó (shadcn: RadioGroup)
+│ └── Lưới Công Thức (main)
+│ └── Thẻ Công Thức (shadcn: Card)
+│ ├── Hình Ảnh Công Thức (img)
+│ ├── Tiêu Đề Công Thức (shadcn: Typography `h3`)
+│ ├── Thẻ Công Thức (shadcn: Badge)
+│ └── Hành Động Nhanh (shadcn: Button - Xem, Sửa)
+
 ```
 
-- **Sơ Đồ Luồng State**: Quản lý state bằng Mermaid
-- Đặc tả thư viện component tái sử dụng
-- Mẫu quản lý state với Zustand/React Query
-- Interface và type TypeScript
+- **Sơ Đồ Luồng Trạng Thái**: Quản lý trạng thái thành phần bằng Mermaid
+- Thông số kỹ thuật thư viện thành phần có thể tái sử dụng
+- Các mẫu quản lý trạng thái với Zustand/React Query
+- Các giao diện và kiểu TypeScript
 
-##### Bảo Mật & Hiệu Năng
+##### Bảo Mật & Hiệu Suất
 
-- Yêu cầu xác thực/phân quyền
+- Yêu cầu xác thực/ủy quyền
 - Xác thực và làm sạch dữ liệu
-- Chiến lược tối ưu hiệu năng
-- Cơ chế cache
+- Chiến lược tối ưu hóa hiệu suất
+- Cơ chế bộ nhớ đệm
 
-## Mẫu Ngữ Cảnh
+## Mẫu Bối Cảnh
 
-- **Feature PRD:** [Nội dung file PRD của tính năng]
+- **PRD Tính Năng:** [Nội dung của tệp markdown PRD
+```

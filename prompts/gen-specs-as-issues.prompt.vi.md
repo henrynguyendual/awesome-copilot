@@ -1,156 +1,183 @@
+---
+description: "Quy trình này hướng dẫn bạn qua một phương pháp có hệ thống để xác định các tính năng còn thiếu, ưu tiên chúng và tạo ra các đặc tả chi tiết để triển khai."
+---
+
 # Trợ lý Quản lý Sản phẩm: Xác định và Đặc tả Tính năng
 
-Quy trình này hướng dẫn bạn tiếp cận có hệ thống để xác định tính năng còn thiếu, ưu tiên chúng và tạo đặc tả chi tiết để triển khai.
+Quy trình này hướng dẫn bạn qua một phương pháp có hệ thống để xác định các tính năng còn thiếu, ưu tiên chúng và tạo ra các đặc tả chi tiết để triển khai.
 
-## 1. Giai đoạn Hiểu Dự án
+## 1. Giai đoạn Tìm hiểu Dự án
 
-- Xem cấu trúc dự án để hiểu cách tổ chức
-- Đọc README.md và tài liệu khác để nắm chức năng cốt lõi
-- Xác định trạng thái triển khai hiện tại bằng cách xem:
-  - Điểm vào chính (CLI, API, UI, ...)
-  - Module lõi và chức năng
-  - Test để hiểu hành vi mong đợi
-  - Mã placeholder
+- Xem xét cấu trúc dự án để hiểu cách tổ chức của nó
+- Đọc tệp README.md và các tệp tài liệu khác để hiểu chức năng cốt lõi của dự án
+- Xác định trạng thái triển khai hiện tại bằng cách kiểm tra:
+  - Các điểm truy cập chính (CLI, API, UI, v.v.)
+  - Các mô-đun cốt lõi và chức năng của chúng
+  - Các bài kiểm thử (tests) để hiểu hành vi mong đợi
+  - Bất kỳ phần triển khai giữ chỗ nào (placeholder)
 
-**Câu hỏi gợi ý:**
-- Mục đích chính của dự án là gì?
-- Giải quyết vấn đề gì cho người dùng?
-- Có mẫu nào trong triển khai hiện tại?
-- Tài liệu có đề cập tính năng chưa hoàn thiện không?
+**Câu hỏi hướng dẫn:**
 
-## 2. Giai đoạn Phân tích Khoảng trống
+- Mục đích chính của dự án này là gì?
+- Nó giải quyết những vấn đề gì của người dùng?
+- Có những khuôn mẫu nào tồn tại trong việc triển khai hiện tại?
+- Những tính năng nào được đề cập trong tài liệu nhưng chưa được triển khai đầy đủ?
 
-- So sánh khả năng được tài liệu hóa với triển khai thực tế
-- Xác định mã placeholder chưa có chức năng thực
-- Tìm tính năng được đề cập nhưng thiếu triển khai
-- Xem hành trình người dùng để tìm bước hỏng hoặc thiếu
-- Tập trung vào chức năng cốt lõi trước
+## 2. Giai đoạn Phân tích Lỗ hổng
 
-**Kết quả:**
-- Danh sách 5-7 tính năng tiềm năng bị thiếu
-- Mỗi tính năng ghi:
+- So sánh các khả năng được ghi trong tài liệu CHỈ với việc triển khai thực tế
+- Xác định mã "giữ chỗ" (placeholder) thiếu chức năng thực sự
+- Tìm kiếm các tính năng được đề cập trong tài liệu nhưng thiếu sự triển khai mạnh mẽ
+- Xem xét hành trình của người dùng và xác định các bước bị hỏng hoặc còn thiếu
+- Tập trung vào chức năng cốt lõi trước (không phải các tính năng "có thì tốt")
+
+**Kết quả cần tạo:**
+
+- Tạo một danh sách các tính năng tiềm năng còn thiếu (5-7 mục)
+- Đối với mỗi tính năng, ghi chú:
+  - Trạng thái triển khai hiện tại
+  - Các tham chiếu trong tài liệu
+  - Tác động đến trải nghiệm người dùng nếu thiếu
+
+## 3. Giai đoạn Ưu tiên hóa
+
+- Gán điểm cho mỗi lỗ hổng được xác định:
+
+**Ma trận chấm điểm (thang điểm 1-5):**
+
+- Tác động đến Người dùng: Có bao nhiêu người dùng được hưởng lợi?
+- Phù hợp với Chiến lược: Có phù hợp với sứ mệnh cốt lõi không?
+- Tính khả thi về Triển khai: Độ phức tạp kỹ thuật?
+- Yêu cầu về Nguồn lực: Nỗ lực phát triển cần thiết?
+- Mức độ Rủi ro: Các tác động tiêu cực tiềm ẩn?
+
+**Độ ưu tiên = (Tác động đến Người dùng × Phù hợp với Chiến lược) / (Nỗ lực Triển khai × Mức độ Rủi ro)**
+
+**Kết quả cần tạo:**
+
+- Trình bày 3 tính năng còn thiếu có độ ưu tiên cao nhất dựa trên điểm số
+- Đối với mỗi tính năng, cung cấp:
+  - Tên tính năng
   - Trạng thái hiện tại
-  - Tham chiếu tài liệu
-  - Ảnh hưởng nếu thiếu
-
-## 3. Giai đoạn Ưu tiên
-
-- Cho điểm mỗi khoảng trống:
-
-**Thang điểm (1-5):**
-- Ảnh hưởng người dùng: Bao nhiêu người hưởng lợi?
-- Phù hợp chiến lược: Có khớp mục tiêu chính?
-- Khả thi triển khai: Độ phức tạp kỹ thuật?
-- Nhu cầu tài nguyên: Nỗ lực phát triển?
-- Mức rủi ro: Ảnh hưởng tiêu cực?
-
-**Độ ưu tiên = (Ảnh hưởng × Phù hợp) / (Nỗ lực × Rủi ro)**
-
-**Kết quả:**
-- 3 tính năng ưu tiên cao nhất
-- Mỗi tính năng có:
-  - Tên
-  - Trạng thái
-  - Ảnh hưởng nếu không triển khai
-  - Phụ thuộc vào tính năng khác
+  - Tác động nếu không được triển khai
+  - Các phụ thuộc vào các tính năng khác
 
 ## 4. Giai đoạn Xây dựng Đặc tả
 
-- Mỗi tính năng ưu tiên viết đặc tả chi tiết nhưng gọn:
-  - Ưu tiên đơn giản
-  - MVP trước
-  - Tối ưu trải nghiệm dev
-  - Thân thiện triển khai
+- Đối với mỗi tính năng được ưu tiên, hãy phát triển một đặc tả chi tiết nhưng thực tế:
+  - Bắt đầu với triết lý: đơn giản hơn phức tạp
+  - Tập trung vào chức năng MVP (Sản phẩm Khả dụng Tối thiểu) trước tiên
+  - Xem xét trải nghiệm của nhà phát triển
+  - Giữ cho đặc tả thân thiện với việc triển khai
 
-**Mỗi đặc tả gồm:**
-1. **Tổng quan & Phạm vi**
-   - Giải quyết vấn đề gì?
-   - Bao gồm & loại trừ gì?
+**Đối với Mỗi Đặc tả Tính năng:**
 
-2. **Yêu cầu kỹ thuật**
-   - Chức năng cốt lõi
-   - Giao diện người dùng (API, UI, CLI,...)
-   - Điểm tích hợp
+1.  **Tổng quan & Phạm vi**
 
-3. **Kế hoạch triển khai**
-   - File/module tạo hoặc chỉnh
-   - Ví dụ code minh họa
-   - Cấu trúc dữ liệu & interface
+    - Nó giải quyết vấn đề gì?
+    - Bao gồm những gì và loại trừ rõ ràng những gì?
 
-4. **Tiêu chí chấp nhận**
-   - Khi nào coi là xong?
-   - Chức năng cụ thể phải hoạt động?
-   - Test cần pass?
+2.  **Yêu cầu Kỹ thuật**
 
-## 5. Giai đoạn Tạo Issue GitHub
+    - Chức năng cốt lõi cần thiết
+    - Các giao diện người dùng (API, UI, CLI, v.v.)
+    - Các điểm tích hợp với mã hiện có
 
-- Mỗi đặc tả thành 1 issue GitHub:
-  - Tiêu đề rõ ràng
-  - Nội dung đặc tả chi tiết
-  - Label phù hợp (enhancement, high-priority,...)
-  - Nhắc đến triết lý MVP
+3.  **Kế hoạch Triển khai**
 
-**Mẫu issue:**
+    - Các mô-đun/tệp chính cần tạo hoặc sửa đổi
+    - Các ví dụ mã đơn giản cho thấy phương pháp tiếp cận
+    - Cấu trúc dữ liệu và giao diện rõ ràng
 
-# [Tên tính năng]
+4.  **Tiêu chí Chấp nhận**
+    - Làm thế nào chúng ta biết khi nào nó hoàn thành?
+    - Chức năng cụ thể nào phải hoạt động?
+    - Những bài kiểm thử nào phải vượt qua?
+
+## 5. Giai đoạn Tạo Issue trên GitHub
+
+- Đối với mỗi đặc tả, tạo một issue trên GitHub:
+  - Tiêu đề rõ ràng, mô tả
+  - Đặc tả toàn diện trong phần thân
+  - Các nhãn phù hợp (enhancement, high-priority, v.v.)
+  - Đề cập rõ ràng triết lý MVP khi có liên quan
+
+**Cấu trúc Mẫu Issue:**
+
+# [Tên Tính năng]
 
 ## Tổng quan
-[Mô tả ngắn về tính năng]
+
+[Mô tả ngắn gọn về tính năng và mục đích của nó]
 
 ## Phạm vi
-[Phạm vi bao gồm & loại trừ]
 
-## Yêu cầu kỹ thuật
-[Yêu cầu kỹ thuật cụ thể]
+[Bao gồm những gì và loại trừ rõ ràng những gì]
 
-## Kế hoạch triển khai
-[Cách tiếp cận, ví dụ code]
+## Yêu cầu Kỹ thuật
 
-## Tiêu chí chấp nhận
-[Danh sách yêu cầu để coi là hoàn tất]
+[Các nhu cầu và ràng buộc kỹ thuật cụ thể]
 
-## Ưu tiên
-[Lý do ưu tiên]
+## Kế hoạch Triển khai
 
-## Phụ thuộc
-- **Chặn:** [Danh sách issue bị chặn]
-- **Bị chặn bởi:** [Danh sách issue phụ thuộc]
+[Phương pháp tiếp cận từng bước với các ví dụ mã đơn giản]
 
-## Quy mô triển khai
-- **Ước tính effort:** [Nhỏ/Vừa/Lớn]
-- **Sub-issues:** [Liên kết sub-issues]
+## Tiêu chí Chấp nhận
 
-## 5.5 Tối ưu phân phối công việc
+[Danh sách rõ ràng các yêu cầu để coi tính năng là hoàn chỉnh]
 
-- **Phân tích độc lập**
-  - Xác định thành phần độc lập
-  - Refactor đặc tả để tối đa luồng độc lập
-  - Tạo ranh giới rõ giữa phần phụ thuộc
+## Độ ưu tiên
 
-- **Sơ đồ phụ thuộc**
-  - Thiết lập issue cha-con khi cần
-  - Ghi rõ "blocked by" và "blocks"
+[Lý giải cho việc ưu tiên]
 
-- **Cân bằng khối lượng**
-  - Chia nhỏ đặc tả lớn thành sub-issues
-  - Mỗi sub-issue 1-3 ngày dev
-  - Tiêu chí chấp nhận riêng cho từng sub-issue
+## Các phụ thuộc
 
-**Hướng dẫn:**
-- Dùng cú pháp liên kết issue GitHub
-- Label trạng thái phụ thuộc
-- Thêm ước tính effort để hỗ trợ lập sprint
+- **Chặn (Blocks):** [Danh sách các issue bị chặn bởi issue này]
+- **Bị chặn bởi (Blocked by):** [Danh sách các issue mà issue này phụ thuộc vào]
 
-## 6. Giai đoạn Rà soát Cuối
+## Quy mô Triển khai
 
-- Tóm tắt đặc tả đã tạo
-- Nêu phụ thuộc giữa tính năng
-- Đề xuất thứ tự triển khai
-- Lưu ý rủi ro và thách thức
+- **Nỗ lực ước tính:** [Nhỏ/Trung bình/Lớn]
+- **Các issue con:** [Liên kết đến các issue con nếu đây là issue cha]
 
-Nguyên tắc xuyên suốt:
-- Ưu tiên đơn giản
-- Bắt đầu với MVP
-- Tối ưu trải nghiệm dev
-- Xây nền tảng mở rộng được
-- Xem xét cộng đồng và đóng góp mã nguồn mở
+## 5.5 Tối ưu hóa Phân bổ Công việc
+
+- **Phân tích tính Độc lập**
+
+  - Xem xét từng đặc tả để xác định các thành phần thực sự độc lập
+  - Tái cấu trúc các đặc tả để tối đa hóa các luồng công việc độc lập
+  - Tạo ra ranh giới rõ ràng giữa các thành phần phụ thuộc lẫn nhau
+
+- **Sơ đồ hóa Phụ thuộc**
+
+  - Đối với các tính năng có các phụ thuộc không thể tránh khỏi, thiết lập hệ thống phân cấp issue rõ ràng
+  - Tạo các issue cha cho tính năng tổng thể với các issue con cho các thành phần
+  - Ghi lại rõ ràng các mối quan hệ "bị chặn bởi" và "chặn"
+
+- **Cân bằng Khối lượng Công việc**
+  - Chia nhỏ các đặc tả lớn thành các issue con nhỏ hơn, dễ quản lý
+  - Đảm bảo mỗi issue con đại diện cho 1-3 ngày làm việc của nhà phát triển
+  - Bao gồm các tiêu chí chấp nhận cụ thể cho từng issue con
+
+**Hướng dẫn Triển khai:**
+
+- Sử dụng cú pháp liên kết issue của GitHub để tạo các mối quan hệ rõ ràng
+- Thêm các nhãn để chỉ ra trạng thái phụ thuộc (ví dụ: "blocked", "prerequisite")
+- Bao gồm độ phức tạp/nỗ lực ước tính cho mỗi issue để hỗ trợ lập kế hoạch sprint
+
+## 6. Giai đoạn Đánh giá Cuối cùng
+
+- Tóm tắt tất cả các đặc tả đã tạo
+- Nêu bật các phụ thuộc triển khai giữa các tính năng
+- Đề xuất một thứ tự triển khai hợp lý
+- Ghi chú bất kỳ thách thức hoặc cân nhắc tiềm năng nào
+
+Hãy nhớ trong suốt quá trình này:
+
+- Ưu tiên sự đơn giản hơn sự phức tạp
+- Bắt đầu với các triển khai khả dụng tối thiểu có thể hoạt động
+- Tập trung vào trải nghiệm của nhà phát triển
+- Xây dựng một nền tảng có thể mở rộng sau này
+- Xem xét cộng đồng mã nguồn mở và mô hình đóng góp
+
+Việc thể hiện phương pháp tiếp cận của chúng ta qua quy trình này sẽ giúp duy trì tính nhất quán trong cách các tính năng được đặc tả và ưu tiên, đảm bảo rằng các dự án phần mềm phát triển một cách có suy nghĩ và lấy người dùng

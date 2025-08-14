@@ -1,30 +1,36 @@
-# Tạo GitHub Issue cho Các Yêu Cầu Chưa Được Thực Hiện trong Đặc Tả
+---
+mode: "agent"
+description: "Tạo GitHub Issues cho các yêu cầu chưa được triển khai từ các tệp đặc tả bằng cách sử dụng mẫu feature_request.yml."
+tools: ["codebase", "search", "github", "create_issue", "search_issues", "update_issue"]
+---
 
-Tạo các GitHub Issue cho những yêu cầu chưa được triển khai trong bản đặc tả tại `${file}`.
+# Tạo GitHub Issues cho các Yêu cầu Đặc tả Chưa được Đáp ứng
 
-## Quy Trình
+Tạo GitHub Issues cho các yêu cầu chưa được triển khai trong tệp đặc tả tại `${file}`.
 
-1. Phân tích file đặc tả để trích xuất tất cả yêu cầu
-2. Kiểm tra trạng thái triển khai của từng yêu cầu trong codebase
-3. Tìm kiếm issue hiện có bằng `search_issues` để tránh trùng lặp
-4. Tạo issue mới cho từng yêu cầu chưa được thực hiện bằng `create_issue`
-5. Sử dụng template `feature_request.yml` (nếu không có thì dùng mặc định)
+## Quy trình
 
-## Yêu Cầu
+1.  Phân tích tệp đặc tả để trích xuất tất cả các yêu cầu.
+2.  Kiểm tra trạng thái triển khai trong codebase cho mỗi yêu cầu.
+3.  Tìm kiếm các issue hiện có bằng `search_issues` để tránh trùng lặp.
+4.  Tạo issue mới cho mỗi yêu cầu chưa được triển khai bằng `create_issue`.
+5.  Sử dụng mẫu `feature_request.yml` (sử dụng mặc định nếu không có).
 
-- Mỗi yêu cầu chưa được thực hiện tương ứng **một** issue
-- Tiêu đề phải chứa ID yêu cầu và mô tả ngắn
-- Bao gồm hướng dẫn triển khai và tiêu chí chấp nhận
-- Xác minh với các issue hiện tại trước khi tạo mới
+## Yêu cầu
 
-## Nội Dung Issue
+- Một issue cho mỗi yêu cầu chưa được triển khai từ tệp đặc tả.
+- Ánh xạ rõ ràng giữa ID yêu cầu và mô tả.
+- Bao gồm hướng dẫn triển khai và tiêu chí chấp nhận.
+- Xác minh với các issue hiện có trước khi tạo.
 
-- **Tiêu đề**: ID yêu cầu và mô tả ngắn
-- **Mô tả**: Yêu cầu chi tiết, phương pháp triển khai và bối cảnh
-- **Nhãn**: feature, enhancement (nếu phù hợp)
+## Nội dung Issue
 
-## Kiểm Tra Triển Khai
+- Tiêu đề: ID yêu cầu và mô tả ngắn gọn.
+- Mô tả: Yêu cầu chi tiết, phương pháp triển khai và ngữ cảnh.
+- Nhãn: feature, enhancement (nếu phù hợp).
 
-- Tìm kiếm các mẫu code liên quan trong codebase
-- Kiểm tra các file đặc tả liên quan trong thư mục `/spec/`
-- Đảm bảo yêu cầu chưa được thực hiện một phần
+## Kiểm tra Triển khai
+
+- Tìm kiếm codebase cho các mẫu mã liên quan.
+- Kiểm tra các tệp đặc tả liên quan trong thư mục `/spec/`.
+- Xác minh yêu cầu không được triển khai

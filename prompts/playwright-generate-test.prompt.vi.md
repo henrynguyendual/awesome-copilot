@@ -1,12 +1,19 @@
-# Tạo Test với Playwright MCP
+---
+mode: agent
+description: "Tạo một bài kiểm thử Playwright dựa trên một kịch bản sử dụng Playwright MCP"
+tools: ["changes", "codebase", "editFiles", "fetch", "findTestFiles", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "playwright"]
+model: "Claude Sonnet 4"
+---
 
-Mục tiêu của bạn là tạo một bài kiểm thử Playwright dựa trên kịch bản đã được cung cấp sau khi hoàn thành tất cả các bước được chỉ định.
+# Tạo bài kiểm thử với Playwright MCP
 
-## Hướng Dẫn Cụ Thể
+Mục tiêu của bạn là tạo một bài kiểm thử Playwright dựa trên kịch bản được cung cấp sau khi hoàn thành tất cả các bước đã quy định.
 
-- Bạn sẽ được cung cấp một kịch bản và cần tạo một bài kiểm thử Playwright cho nó. Nếu người dùng không cung cấp kịch bản, hãy yêu cầu họ cung cấp.
-- KHÔNG được tạo mã kiểm thử sớm hoặc chỉ dựa trên kịch bản mà chưa hoàn thành tất cả các bước đã chỉ định.
-- HÃY chạy các bước từng bước một bằng các công cụ được cung cấp bởi Playwright MCP.
-- Chỉ sau khi hoàn thành tất cả các bước, mới tạo bài kiểm thử Playwright TypeScript sử dụng `@playwright/test` dựa trên lịch sử tin nhắn.
-- Lưu tệp kiểm thử đã tạo vào thư mục tests.
-- Thực thi tệp kiểm thử và lặp lại cho đến khi bài kiểm thử vượt qua.
+## Hướng dẫn cụ thể
+
+- Bạn được cung cấp một kịch bản và bạn cần tạo một bài kiểm thử playwright cho nó. Nếu người dùng không cung cấp kịch bản, bạn sẽ yêu cầu họ cung cấp.
+- KHÔNG tạo mã kiểm thử sớm hoặc chỉ dựa trên kịch bản mà không hoàn thành tất cả các bước đã quy định.
+- HÃY chạy từng bước một bằng các công cụ do Playwright MCP cung cấp.
+- Chỉ sau khi tất cả các bước hoàn tất, hãy tạo ra một bài kiểm thử Playwright TypeScript sử dụng `@playwright/test` dựa trên lịch sử tin nhắn.
+- Lưu tệp kiểm thử đã tạo vào thư mục `tests`.
+- Thực thi tệp kiểm thử và lặp lại cho đến khi bài kiểm thử thành

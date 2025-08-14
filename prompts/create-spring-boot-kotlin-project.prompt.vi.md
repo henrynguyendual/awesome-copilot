@@ -1,48 +1,65 @@
-# Tạo Skeleton Dự Án Spring Boot Kotlin
+---
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "findTestFiles", "problems", "runCommands", "runTests", "search", "searchResults", "terminalLastCommand", "testFailure", "usages"]
+description: "Tạo bộ khung dự án Spring Boot Kotlin"
+---
 
-## Yêu Cầu Phần Mềm
+# Hướng dẫn tạo dự án Spring Boot Kotlin
 
-Đảm bảo đã cài đặt các phần mềm sau:
+- Vui lòng đảm bảo bạn đã cài đặt các phần mềm sau trên hệ thống của mình:
 
-- Java 21
-- Docker
-- Docker Compose
+  - Java 21
+  - Docker
+  - Docker Compose
 
-Nếu muốn tùy chỉnh tên dự án, thay đổi `artifactId` và `packageName` trong phần [Tải template dự án Spring Boot](#tải-template-dự-án-spring-boot).
+- Nếu bạn cần tùy chỉnh tên dự án, vui lòng thay đổi `artifactId` và `packageName` trong tải mẫu dự án Spring Boot
 
-Nếu muốn cập nhật phiên bản Spring Boot, thay đổi `bootVersion` trong phần [Tải template dự án Spring Boot](#tải-template-dự-án-spring-boot).
+- Nếu bạn cần cập nhật phiên bản Spring Boot, vui lòng thay đổi `bootVersion` trong tải mẫu dự án Spring Boot
 
-## 1. Kiểm Tra Phiên Bản Java
+## Kiểm tra phiên bản Java
 
-Chạy lệnh sau:
+- Chạy lệnh sau trong terminal và kiểm tra phiên bản Java
 
 ```shell
 java -version
 ```
 
-## 2. Tải Template Dự Án Spring Boot
+## Tải mẫu dự án Spring Boot
 
-Chạy lệnh:
+- Chạy lệnh sau trong terminal để tải về một mẫu dự án Spring Boot
 
 ```shell
-curl https://start.spring.io/starter.zip   -d artifactId=demo   -d bootVersion=3.4.5   -d dependencies=configuration-processor,webflux,data-r2dbc,postgresql,data-redis-reactive,data-mongodb-reactive,validation,cache,testcontainers   -d javaVersion=21   -d language=kotlin   -d packageName=com.example   -d packaging=jar   -d type=gradle-project-kotlin   -o starter.zip
+curl https://start.spring.io/starter.zip \
+  -d artifactId=demo \
+  -d bootVersion=3.4.5 \
+  -d dependencies=configuration-processor,webflux,data-r2dbc,postgresql,data-redis-reactive,data-mongodb-reactive,validation,cache,testcontainers \
+  -d javaVersion=21 \
+  -d language=kotlin \
+  -d packageName=com.example \
+  -d packaging=jar \
+  -d type=gradle-project-kotlin \
+  -o starter.zip
 ```
 
-## 3. Giải Nén File
+## Giải nén tệp đã tải về
+
+- Chạy lệnh sau trong terminal để giải nén tệp đã tải về
 
 ```shell
 unzip starter.zip -d .
 ```
 
-## 4. Xóa File ZIP
+## Xóa tệp zip đã tải về
+
+- Chạy lệnh sau trong terminal để xóa tệp zip đã tải về
 
 ```shell
 rm -f starter.zip
 ```
 
-## 5. Thêm Dependency Bổ Sung
+## Thêm các dependency bổ sung
 
-Trong `build.gradle.kts`:
+- Chèn dependency `springdoc-openapi-starter-webmvc-ui` và `archunit-junit5` vào tệp `build.gradle.kts`
 
 ```gradle.kts
 dependencies {
@@ -51,28 +68,28 @@ dependencies {
 }
 ```
 
-## 6. Thêm Cấu Hình
-
-### SpringDoc (`application.properties`):
+- Chèn cấu hình SpringDoc vào tệp `application.properties`
 
 ```properties
-# SpringDoc
+# Cấu hình SpringDoc
 springdoc.swagger-ui.doc-expansion=none
 springdoc.swagger-ui.operations-sorter=alpha
 springdoc.swagger-ui.tags-sorter=alpha
 ```
 
-### Redis:
+- Chèn cấu hình Redis vào tệp `application.properties`
 
 ```properties
+# Cấu hình Redis
 spring.data.redis.host=localhost
 spring.data.redis.port=6379
 spring.data.redis.password=rootroot
 ```
 
-### R2DBC:
+- Chèn cấu hình R2DBC vào tệp `application.properties`
 
 ```properties
+# Cấu hình R2DBC
 spring.r2dbc.url=r2dbc:postgresql://localhost:5432/postgres
 spring.r2dbc.username=postgres
 spring.r2dbc.password=rootroot
@@ -82,9 +99,10 @@ spring.sql.init.platform=postgres
 spring.sql.init.continue-on-error=true
 ```
 
-### MongoDB:
+- Chèn cấu hình MongoDB vào tệp `application.properties`
 
 ```properties
+# Cấu hình MongoDB
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
 spring.data.mongodb.authentication-database=admin
@@ -93,46 +111,30 @@ spring.data.mongodb.password=rootroot
 spring.data.mongodb.database=test
 ```
 
-## 7. Thêm `docker-compose.yaml`
+- Tạo tệp `docker-compose.yaml` ở thư mục gốc của dự án và thêm các dịch vụ sau: `redis:6`, `postgresql:17` và `mongo:8`.
 
-Tại thư mục gốc dự án, tạo các service:
+  - Dịch vụ redis cần có:
+    - mật khẩu `rootroot`
+    - ánh xạ cổng 6379 tới 6379
+    - gắn volume `./redis_data` vào `/data`
+  - Dịch vụ postgresql cần có:
+    - mật khẩu `rootroot`
+    - ánh xạ cổng 5432 tới 5432
+    - gắn volume `./postgres_data` vào `/var/lib/postgresql/data`
+  - Dịch vụ mongo cần có:
+    - tên người dùng root khởi tạo `root`
+    - mật khẩu root khởi tạo `rootroot`
+    - ánh xạ cổng 27017 tới 27017
+    - gắn volume `./mongo_data` vào `/data/db`
 
-- **redis:6**
-  - password: `rootroot`
-  - port 6379:6379
-  - volume `./redis_data:/data`
-- **postgresql:17**
-  - password: `rootroot`
-  - port 5432:5432
-  - volume `./postgres_data:/var/lib/postgresql/data`
-- **mongo:8**
-  - user: `root`
-  - password: `rootroot`
-  - port 27017:27017
-  - volume `./mongo_data:/data/db`
+- Chèn các thư mục `redis_data`, `postgres_data` và `mongo_data` vào tệp `.gitignore`
 
-## 8. Thêm `.gitignore`
-
-```
-redis_data
-postgres_data
-mongo_data
-```
-
-## 9. Chạy Test
+- Chạy lệnh `gradle clean test` để kiểm tra xem dự án có hoạt động không
 
 ```shell
 ./gradlew clean test
 ```
 
-## 10. (Tùy Chọn) Chạy Dự Án
+- (Tùy chọn) `docker-compose up -d` để khởi động các dịch vụ, `./gradlew spring-boot:run` để chạy dự án Spring Boot, `docker-compose rm -sf` để dừng các dịch vụ.
 
-```shell
-docker-compose up -d
-./gradlew spring-boot:run
-docker-compose rm -sf
-```
-
----
-
-**Thực hiện từng bước để đảm bảo dự án hoạt động ổn định.**
+Hãy thực hiện từng bước một.

@@ -1,41 +1,47 @@
-Mục tiêu của bạn là giúp tôi tạo ra các Dockerfile đa tầng (multi-stage) hiệu quả, tuân thủ các thực tiễn tốt nhất, nhằm tạo ra các image nhỏ hơn và bảo mật hơn.
+---
+mode: "agent"
+tools: ["codebase"]
+description: "Tạo các Dockerfile đa giai đoạn được tối ưu hóa cho bất kỳ ngôn ngữ hoặc framework nào"
+---
 
-## Cấu trúc Multi-Stage
+Mục tiêu của bạn là giúp tôi tạo ra các Dockerfile đa giai đoạn hiệu quả, tuân thủ các phương pháp hay nhất, nhằm tạo ra các image container nhỏ hơn và an toàn hơn.
 
-- Sử dụng một stage builder để biên dịch, cài đặt dependencies và thực hiện các thao tác ở thời điểm build.
-- Sử dụng một stage runtime riêng chỉ bao gồm những gì cần thiết để chạy ứng dụng.
-- Chỉ copy các artifact cần thiết từ stage builder sang stage runtime.
-- Sử dụng tên stage có ý nghĩa với từ khóa `AS` (ví dụ: `FROM node:18 AS builder`).
-- Sắp xếp thứ tự các stage hợp lý: dependencies → build → test → runtime.
+## Cấu trúc đa giai đoạn
 
-## Image Nền (Base Images)
+- Sử dụng một giai đoạn `builder` để biên dịch, cài đặt dependency và các hoạt động khác tại thời điểm build.
+- Sử dụng một giai đoạn `runtime` riêng biệt chỉ chứa những gì cần thiết để chạy ứng dụng.
+- Chỉ sao chép các thành phần cần thiết từ giai đoạn `builder` sang giai đoạn `runtime`.
+- Sử dụng tên giai đoạn có ý nghĩa với từ khóa `AS` (ví dụ: `FROM node:18 AS builder`).
+- Sắp xếp các giai đoạn theo thứ tự logic: cài đặt dependency → build → kiểm thử → runtime.
 
-- Bắt đầu với các image chính thức và tối giản khi có thể.
-- Chỉ định rõ phiên bản tag để đảm bảo build tái lập (ví dụ: `python:3.11-slim` thay vì chỉ `python`).
-- Cân nhắc sử dụng image distroless cho các stage runtime khi phù hợp.
-- Sử dụng image Alpine để giảm dung lượng khi ứng dụng tương thích.
-- Đảm bảo image runtime chỉ có các dependencies tối thiểu cần thiết.
+## Base Image
 
-## Tối Ưu Hóa Layer
+- Bắt đầu với các base image chính thức, tối giản khi có thể.
+- Chỉ định tag phiên bản chính xác để đảm bảo các bản build có thể tái tạo (ví dụ: `python:3.11-slim` thay vì chỉ `python`).
+- Cân nhắc sử dụng các image `distroless` cho các giai đoạn runtime khi thích hợp.
+- Sử dụng các image dựa trên Alpine để có dung lượng nhỏ hơn khi tương thích với ứng dụng của bạn.
+- Đảm bảo image runtime có các dependency cần thiết ở mức tối thiểu.
 
-- Sắp xếp các lệnh để tối đa hóa khả năng cache của layer.
-- Đặt các lệnh thay đổi thường xuyên (như thay đổi code) sau các lệnh thay đổi ít hơn (như cài đặt dependencies).
-- Sử dụng `.dockerignore` để ngăn các tệp không cần thiết vào build context.
-- Kết hợp các lệnh RUN liên quan với `&&` để giảm số lượng layer.
+## Tối ưu hóa Layer
+
+- Sắp xếp các lệnh để tối đa hóa việc sử dụng cache của layer.
+- Đặt các lệnh thay đổi thường xuyên (như thay đổi mã nguồn) sau các lệnh ít thay đổi hơn (như cài đặt dependency).
+- Sử dụng `.dockerignore` để ngăn các tệp không cần thiết được đưa vào ngữ cảnh build.
+- Kết hợp các lệnh `RUN` liên quan bằng `&&` để giảm số lượng layer.
 - Cân nhắc sử dụng `COPY --chown` để thiết lập quyền trong một bước.
 
-## Thực Hành Bảo Mật
+## Các phương pháp bảo mật
 
-- Tránh chạy container với quyền root – sử dụng lệnh `USER` để chỉ định một user không phải root.
-- Xóa các công cụ build và các package không cần thiết khỏi image cuối.
-- Quét image cuối để phát hiện lỗ hổng bảo mật.
-- Thiết lập quyền file hạn chế.
-- Sử dụng build đa tầng để tránh đưa các secrets build vào image cuối.
+- Tránh chạy container với quyền `root` - sử dụng chỉ thị `USER` để chỉ định một người dùng không phải `root`.
+- Xóa các công cụ build và các gói không cần thiết khỏi image cuối cùng.
+- Quét image cuối cùng để tìm các lỗ hổng bảo mật.
+- Thiết lập quyền truy cập tệp hạn chế.
+- Sử dụng build đa giai đoạn để tránh đưa các bí mật build vào image cuối cùng.
 
-## Các Yếu Tố Hiệu Năng
+## Cân nhắc về hiệu suất
 
-- Sử dụng build arguments cho các cấu hình có thể thay đổi giữa các môi trường.
-- Tận dụng cache build hiệu quả bằng cách sắp xếp layer từ ít thay đổi đến thay đổi thường xuyên nhất.
-- Cân nhắc chạy song song các bước build khi có thể.
-- Thiết lập các biến môi trường thích hợp, ví dụ: `NODE_ENV=production` để tối ưu hiệu suất runtime.
-- Sử dụng healthcheck phù hợp với loại ứng dụng bằng lệnh HEALTHCHECK.
+- Sử dụng các đối số build (`build arguments`) cho cấu hình có thể thay đổi giữa các môi trường.
+- Tận dụng cache của build một cách hiệu quả bằng cách sắp xếp các layer từ ít thay đổi nhất đến thay đổi thường xuyên nhất.
+- Cân nhắc việc song song hóa trong các bước build khi có thể.
+- Thiết lập các biến môi trường phù hợp như `NODE_ENV=production` để tối ưu hóa hành vi lúc runtime.
+- Sử dụng các kiểm tra sức khỏe (`healthchecks`) phù hợp với loại ứng dụng bằng chỉ thị `HEALTHCHECK`.

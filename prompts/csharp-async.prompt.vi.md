@@ -1,44 +1,50 @@
-# Thực Hành Tốt Nhất Cho Lập Trình Bất Đồng Bộ (Async) Trong C#
+---
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "problems"]
+description: "Nhận các phương pháp hay nhất cho lập trình bất đồng bộ trong C#"
+---
 
-Mục tiêu của bạn là giúp tôi tuân theo các thực hành tốt nhất khi lập trình bất đồng bộ trong C#.
+# Các phương pháp hay nhất cho Lập trình bất đồng bộ trong C#
 
-## Quy Tắc Đặt Tên
+Mục tiêu của bạn là giúp tôi tuân theo các phương pháp hay nhất cho lập trình bất đồng bộ trong C#.
 
-- Sử dụng hậu tố 'Async' cho tất cả các phương thức async
-- Giữ tên phương thức khớp với phiên bản đồng bộ nếu có (ví dụ: `GetDataAsync()` cho `GetData()`)
+## Quy ước đặt tên
 
-## Kiểu Trả Về
+- Sử dụng hậu tố 'Async' cho tất cả các phương thức bất đồng bộ
+- Tên phương thức phải khớp với các phương thức đồng bộ tương ứng khi có thể (ví dụ: `GetDataAsync()` cho `GetData()`)
 
-- Trả về `Task<T>` khi phương thức trả về giá trị
+## Kiểu trả về
+
+- Trả về `Task<T>` khi phương thức trả về một giá trị
 - Trả về `Task` khi phương thức không trả về giá trị
-- Cân nhắc `ValueTask<T>` trong các tình huống yêu cầu hiệu năng cao để giảm cấp phát bộ nhớ
-- Tránh trả về `void` cho phương thức async ngoại trừ các event handler
+- Cân nhắc `ValueTask<T>` cho các kịch bản yêu cầu hiệu năng cao để giảm việc cấp phát bộ nhớ
+- Tránh trả về `void` cho các phương thức bất đồng bộ, ngoại trừ các trình xử lý sự kiện (event handlers)
 
-## Xử Lý Ngoại Lệ
+## Xử lý ngoại lệ (Exception Handling)
 
-- Dùng khối try/catch bao quanh các biểu thức `await`
-- Tránh nuốt ngoại lệ trong phương thức async
-- Sử dụng `ConfigureAwait(false)` khi thích hợp để tránh deadlock trong code thư viện
-- Truyền ngoại lệ bằng `Task.FromException()` thay vì throw trực tiếp trong các phương thức trả về Task async
+- Sử dụng khối try/catch xung quanh các biểu thức `await`
+- Tránh "nuốt" ngoại lệ (swallowing exceptions) trong các phương thức bất đồng bộ
+- Sử dụng `ConfigureAwait(false)` khi thích hợp để ngăn chặn deadlock trong mã thư viện
+- Lan truyền ngoại lệ với `Task.FromException()` thay vì ném (throwing) trong các phương thức trả về `Task` bất đồng bộ
 
-## Hiệu Năng
+## Hiệu năng
 
-- Dùng `Task.WhenAll()` để thực hiện song song nhiều tác vụ
-- Dùng `Task.WhenAny()` để triển khai timeout hoặc lấy task hoàn thành đầu tiên
-- Tránh sử dụng async/await không cần thiết khi chỉ trả về kết quả từ Task
-- Cân nhắc sử dụng CancellationToken cho các tác vụ chạy lâu
+- Sử dụng `Task.WhenAll()` để thực thi song song nhiều tác vụ
+- Sử dụng `Task.WhenAny()` để triển khai thời gian chờ (timeouts) hoặc lấy tác vụ hoàn thành đầu tiên
+- Tránh sử dụng `async/await` không cần thiết khi chỉ đơn giản là chuyển tiếp kết quả của tác vụ
+- Cân nhắc sử dụng cancellation token cho các hoạt động chạy trong thời gian dài
 
-## Lỗi Thường Gặp
+## Những cạm bẫy thường gặp
 
-- Không bao giờ sử dụng `.Wait()`, `.Result` hoặc `.GetAwaiter().GetResult()` trong code async
-- Tránh trộn lẫn code đồng bộ và async
-- Không tạo phương thức async void (ngoại trừ event handler)
-- Luôn `await` các phương thức trả về Task
+- Không bao giờ sử dụng `.Wait()`, `.Result`, hoặc `.GetAwaiter().GetResult()` trong mã bất đồng bộ
+- Tránh trộn lẫn mã chặn (blocking) và mã bất đồng bộ
+- Không tạo các phương thức `async void` (ngoại trừ các trình xử lý sự kiện)
+- Luôn `await` các phương thức trả về `Task`
 
-## Mẫu Triển Khai
+## Các mẫu triển khai (Implementation Patterns)
 
-- Triển khai pattern async command cho các tác vụ chạy lâu
-- Sử dụng async streams (`IAsyncEnumerable<T>`) để xử lý chuỗi dữ liệu bất đồng bộ
-- Cân nhắc sử dụng Task-based Asynchronous Pattern (TAP) cho các API public
+- Triển khai mẫu lệnh bất đồng bộ (async command pattern) cho các hoạt động chạy trong thời gian dài
+- Sử dụng luồng bất đồng bộ (async streams - `IAsyncEnumerable<T>`) để xử lý các chuỗi một cách bất đồng bộ
+- Cân nhắc mẫu bất đồng bộ dựa trên tác vụ (task-based asynchronous pattern - TAP) cho các API công khai
 
-Khi review code C#, hãy xác định các vấn đề này và đề xuất cải tiến để tuân theo các thực hành tốt nhất này.
+Khi xem xét mã C# của tôi, hãy xác định những vấn đề này và đề xuất các cải tiến tuân theo những phương pháp hay nhất

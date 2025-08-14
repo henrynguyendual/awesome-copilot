@@ -1,48 +1,74 @@
-# Tạo Skeleton Dự Án Spring Boot Java
+---
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "findTestFiles", "problems", "runCommands", "runTests", "search", "searchResults", "terminalLastCommand", "testFailure", "usages"]
+description: "Tạo khung sườn dự án Spring Boot Java"
+---
 
-## Yêu Cầu Phần Mềm
+# Hướng dẫn tạo dự án Spring Boot Java
 
-Đảm bảo bạn đã cài đặt sẵn:
+- Vui lòng đảm bảo bạn đã cài đặt các phần mềm sau trên hệ thống của mình:
 
-- Java 21
-- Docker
-- Docker Compose
+  - Java 21
+  - Docker
+  - Docker Compose
 
-Nếu muốn tùy chỉnh tên dự án, hãy thay đổi `artifactId` và `packageName` trong phần [Tải template dự án Spring Boot](#tải-template-dự-án-spring-boot).
+- Nếu bạn cần tùy chỉnh tên dự án, vui lòng thay đổi `artifactId` và `packageName` trong [tải về mẫu dự án Spring Boot](https://www.google.com/search?q=./create-spring-boot-java-project.prompt.md%23download-spring-boot-project-template)
 
-Nếu muốn cập nhật phiên bản Spring Boot, hãy thay đổi `bootVersion` trong phần [Tải template dự án Spring Boot](#tải-template-dự-án-spring-boot).
+- Nếu bạn cần cập nhật phiên bản Spring Boot, vui lòng thay đổi `bootVersion` trong [tải về mẫu dự án Spring Boot](https://www.google.com/search?q=./create-spring-boot-java-project.prompt.md%23download-spring-boot-project-template)
 
-## 1. Kiểm Tra Phiên Bản Java
+## Kiểm tra phiên bản Java
 
-Chạy lệnh sau để kiểm tra:
+- Chạy lệnh sau trong terminal và kiểm tra phiên bản Java
+
+<!-- end list -->
 
 ```shell
 java -version
 ```
 
-## 2. Tải Template Dự Án Spring Boot
+## Tải về mẫu dự án Spring Boot
 
-Chạy lệnh:
+- Chạy lệnh sau trong terminal để tải về một mẫu dự án Spring Boot
+
+<!-- end list -->
 
 ```shell
-curl https://start.spring.io/starter.zip   -d artifactId=demo   -d bootVersion=3.4.5   -d dependencies=lombok,configuration-processor,web,data-jpa,postgresql,data-redis,data-mongodb,validation,cache,testcontainers   -d javaVersion=21   -d packageName=com.example   -d packaging=jar   -d type=maven-project   -o starter.zip
+curl https://start.spring.io/starter.zip \
+  -d artifactId=demo \
+  -d bootVersion=3.4.5 \
+  -d dependencies=lombok,configuration-processor,web,data-jpa,postgresql,data-redis,data-mongodb,validation,cache,testcontainers \
+  -d javaVersion=21 \
+  -d packageName=com.example \
+  -d packaging=jar \
+  -d type=maven-project \
+  -o starter.zip
 ```
 
-## 3. Giải Nén File Đã Tải
+## Giải nén tập tin đã tải về
+
+- Chạy lệnh sau trong terminal để giải nén tập tin đã tải về
+
+<!-- end list -->
 
 ```shell
 unzip starter.zip -d .
 ```
 
-## 4. Xóa File ZIP
+## Xóa tập tin zip đã tải về
+
+- Chạy lệnh sau trong terminal để xóa tập tin zip đã tải về
+
+<!-- end list -->
 
 ```shell
 rm -f starter.zip
 ```
 
-## 5. Thêm Dependency Bổ Sung
+## Thêm các phụ thuộc bổ sung
 
-Thêm vào `pom.xml`:
+- Chèn phụ thuộc `springdoc-openapi-starter-webmvc-ui` và `archunit-junit5` vào tệp `pom.xml`
+
+<!-- end list -->
 
 ```xml
 <dependency>
@@ -58,22 +84,36 @@ Thêm vào `pom.xml`:
 </dependency>
 ```
 
-## 6. Thêm Cấu Hình SpringDoc, Redis, JPA, MongoDB
+## Thêm cấu hình cho SpringDoc, Redis, JPA và MongoDB
 
-Trong `application.properties`:
+- Chèn cấu hình SpringDoc vào tệp `application.properties`
+
+<!-- end list -->
 
 ```properties
-# SpringDoc
+# Cấu hình SpringDoc
 springdoc.swagger-ui.doc-expansion=none
 springdoc.swagger-ui.operations-sorter=alpha
 springdoc.swagger-ui.tags-sorter=alpha
+```
 
-# Redis
+- Chèn cấu hình Redis vào tệp `application.properties`
+
+<!-- end list -->
+
+```properties
+# Cấu hình Redis
 spring.data.redis.host=localhost
 spring.data.redis.port=6379
 spring.data.redis.password=rootroot
+```
 
-# JPA
+- Chèn cấu hình JPA vào tệp `application.properties`
+
+<!-- end list -->
+
+```properties
+# Cấu hình JPA
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
 spring.datasource.username=postgres
@@ -81,8 +121,14 @@ spring.datasource.password=rootroot
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+```
 
-# MongoDB
+- Chèn cấu hình MongoDB vào tệp `application.properties`
+
+<!-- end list -->
+
+```properties
+# Cấu hình MongoDB
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
 spring.data.mongodb.authentication-database=admin
@@ -91,48 +137,40 @@ spring.data.mongodb.password=rootroot
 spring.data.mongodb.database=test
 ```
 
-## 7. Thêm `docker-compose.yaml`
+## Thêm tệp `docker-compose.yaml` với các dịch vụ Redis, PostgreSQL và MongoDB
 
-Tạo file tại root dự án với các service:
+- Tạo tệp `docker-compose.yaml` ở thư mục gốc của dự án và thêm các dịch vụ sau: `redis:6`, `postgresql:17` và `mongo:8`.
 
-- **redis:6**
-  - password `rootroot`
-  - port 6379:6379
-  - volume `./redis_data:/data`
-- **postgresql:17**
-  - password `rootroot`
-  - port 5432:5432
-  - volume `./postgres_data:/var/lib/postgresql/data`
-- **mongo:8**
-  - user: `root`
-  - password: `rootroot`
-  - port 27017:27017
-  - volume `./mongo_data:/data/db`
+  - Dịch vụ redis cần có
+    - mật khẩu `rootroot`
+    - ánh xạ cổng 6379 tới 6379
+    - gắn volume `./redis_data` vào `/data`
+  - Dịch vụ postgresql cần có
+    - mật khẩu `rootroot`
+    - ánh xạ cổng 5432 tới 5432
+    - gắn volume `./postgres_data` vào `/var/lib/postgresql/data`
+  - Dịch vụ mongo cần có
+    - tên người dùng root khởi tạo là `root`
+    - mật khẩu root khởi tạo là `rootroot`
+    - ánh xạ cổng 27017 tới 27017
+    - gắn volume `./mongo_data` vào `/data/db`
 
-## 8. Thêm `.gitignore`
+## Thêm tệp `.gitignore`
 
-Bỏ qua thư mục:
+- Chèn các thư mục `redis_data`, `postgres_data` và `mongo_data` vào tệp `.gitignore`
 
-```
-redis_data
-postgres_data
-mongo_data
-```
+## Chạy lệnh kiểm thử của Maven
 
-## 9. Chạy Test Maven
+- Chạy lệnh `maven clean test` để kiểm tra xem dự án có hoạt động không
+
+<!-- end list -->
 
 ```shell
 ./mvnw clean test
 ```
 
-## 10. Chạy Dự Án (Tùy Chọn)
+## Chạy lệnh thực thi của Maven (Tùy chọn)
 
-```shell
-docker-compose up -d
-./mvnw spring-boot:run
-docker-compose rm -sf
-```
+- (Tùy chọn) `docker-compose up -d` để khởi động các dịch vụ, `./mvnw spring-boot:run` để chạy dự án Spring Boot, `docker-compose rm -sf` để dừng các dịch vụ.
 
----
-
-**Thực hiện từng bước một để hoàn thiện dự án.**
+## Hãy thực hiện từng bước một

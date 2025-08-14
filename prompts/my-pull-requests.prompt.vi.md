@@ -1,9 +1,15 @@
-Tìm kiếm trong repository hiện tại (sử dụng #githubRepo để lấy thông tin repo) và liệt kê bất kỳ pull request nào bạn tìm thấy (sử dụng #list_pull_requests) mà được gán cho tôi.
+---
+mode: "agent"
+tools: ["githubRepo", "github", "get_me", "get_pull_request", "get_pull_request_comments", "get_pull_request_diff", "get_pull_request_files", "get_pull_request_reviews", "get_pull_request_status", "list_pull_requests", "request_copilot_review"]
+description: "Liệt kê các pull request của tôi trong kho lưu trữ hiện tại"
+---
 
-Mô tả mục đích và chi tiết của từng pull request.
+Tìm kiếm kho lưu trữ hiện tại (sử dụng #githubRepo để biết thông tin kho lưu trữ) và liệt kê bất kỳ pull request nào bạn tìm thấy (sử dụng #list_pull_requests) được giao cho tôi.
 
-Nếu một PR đang chờ ai đó review, hãy làm nổi bật điều đó trong phản hồi.
+Mô tả mục đích và chi tiết của mỗi pull request.
 
-Nếu có bất kỳ lỗi kiểm tra (check failures) nào trên PR, hãy mô tả chúng và đề xuất cách khắc phục.
+Nếu một PR đang chờ ai đó xem xét, hãy làm nổi bật điều đó trong câu trả lời.
 
-Nếu chưa có review nào được thực hiện bởi Copilot, hãy đề nghị yêu cầu một review bằng cách sử dụng #request_copilot_review.
+Nếu có bất kỳ lỗi kiểm tra nào trên PR, hãy mô tả chúng và đề xuất các bản sửa lỗi có thể.
+
+Nếu chưa có đánh giá nào được thực hiện bởi Copilot, hãy đề nghị yêu cầu một đánh giá bằng

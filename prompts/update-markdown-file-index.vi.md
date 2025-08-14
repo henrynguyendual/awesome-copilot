@@ -1,76 +1,77 @@
 ---
-chế độ: 'agent'
-mô tả: 'Cập nhật một phần trong file markdown với mục lục/bảng liệt kê các file từ một thư mục được chỉ định.'
-công_cụ: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Cập nhật một phần trong tệp markdown với một chỉ mục/bảng các tệp từ một thư mục được chỉ định."
+tools: ["changes", "codebase", "editFiles", "extensions", "fetch", "findTestFiles", "githubRepo", "openSimpleBrowser", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI"]
 ---
-# Cập nhật Mục lục File Markdown
 
-Cập nhật file markdown `${file}` với mục lục/bảng liệt kê các file từ thư mục `${input:folder}`.
+# Cập nhật Chỉ mục Tệp Markdown
+
+Cập nhật tệp markdown `${file}` với một chỉ mục/bảng các tệp từ thư mục `${input:folder}`.
 
 ## Quy trình
 
-1. **Quét**: Đọc file markdown đích `${file}` để hiểu cấu trúc hiện tại
-2. **Khám phá**: Liệt kê tất cả các file trong thư mục `${input:folder}` phù hợp với mẫu `${input:pattern}`
-3. **Phân tích**: Xác định xem có phần bảng/mục lục hiện tại cần cập nhật hay tạo mới
-4. **Cấu trúc**: Tạo bảng/danh sách phù hợp dựa trên loại file và nội dung hiện có
-5. **Cập nhật**: Thay thế phần hiện có hoặc thêm phần mới với mục lục file
-6. **Xác minh**: Đảm bảo cú pháp markdown hợp lệ và định dạng đồng nhất
+1.  **Quét**: Đọc tệp markdown đích `${file}` để hiểu cấu trúc hiện có.
+2.  **Khám phá**: Liệt kê tất cả các tệp trong thư mục được chỉ định `${input:folder}` khớp với mẫu `${input:pattern}`.
+3.  **Phân tích**: Xác định xem có phần bảng/chỉ mục hiện có để cập nhật hay tạo cấu trúc mới.
+4.  **Cấu trúc**: Tạo định dạng bảng/danh sách phù hợp dựa trên loại tệp và nội dung hiện có.
+5.  **Cập nhật**: Thay thế phần hiện có hoặc thêm phần mới với chỉ mục tệp.
+6.  **Xác thực**: Đảm bảo cú pháp markdown hợp lệ và định dạng nhất quán.
 
-## Phân tích File
+## Phân tích Tệp
 
-Với mỗi file tìm được, trích xuất:
+Đối với mỗi tệp được khám phá, hãy trích xuất:
 
-- **Tên**: Tên file có hoặc không kèm phần mở rộng tuỳ ngữ cảnh
-- **Loại**: Phần mở rộng và loại (ví dụ: `.md`, `.js`, `.py`)
-- **Mô tả**: Dòng comment đầu tiên, tiêu đề, hoặc mục đích suy đoán
-- **Kích thước**: Dung lượng file (tùy chọn)
-- **Chỉnh sửa lần cuối**: Ngày chỉnh sửa gần nhất (tùy chọn)
+- **Tên**: Tên tệp có hoặc không có phần mở rộng tùy theo ngữ cảnh.
+- **Loại**: Phần mở rộng và danh mục tệp (ví dụ: `.md`, `.js`, `.py`).
+- **Mô tả**: Dòng chú thích đầu tiên, tiêu đề hoặc mục đích được suy ra.
+- **Kích thước**: Kích thước tệp để tham khảo (tùy chọn).
+- **Sửa đổi**: Ngày sửa đổi cuối cùng (tùy chọn).
 
-## Tuỳ chọn Cấu trúc Bảng
+## Các tùy chọn Cấu trúc Bảng
 
-Chọn định dạng dựa trên loại file và nội dung hiện có:
+Chọn định dạng dựa trên loại tệp và nội dung hiện có:
 
-### Tuỳ chọn 1: Danh sách đơn giản
+### Tùy chọn 1: Danh sách Đơn giản
 
 ```markdown
-## Các file trong ${folder}
+## Các tệp trong ${folder}
 
-- [tênfile.ext](path/to/tênfile.ext) - Mô tả
-- [tênfile2.ext](path/to/tênfile2.ext) - Mô tả
+- [tên_tệp.ext](đường_dẫn/đến/tên_tệp.ext) - Mô tả
+- [tên_tệp2.ext](đường_dẫn/đến/tên_tệp2.ext) - Mô tả
 ```
 
-### Tuỳ chọn 2: Bảng chi tiết
+### Tùy chọn 2: Bảng Chi tiết
 
-| File | Loại | Mô tả |
-|------|------|-------|
-| [tênfile.ext](path/to/tênfile.ext) | Phần mở rộng | Mô tả |
-| [tênfile2.ext](path/to/tênfile2.ext) | Phần mở rộng | Mô tả |
+| Tệp                                        | Loại         | Mô tả |
+| ------------------------------------------ | ------------ | ----- |
+| [tên_tệp.ext](đường_dẫn/đến/tên_tệp.ext)   | Phần mở rộng | Mô tả |
+| [tên_tệp2.ext](đường_dẫn/đến/tên_tệp2.ext) | Phần mở rộng | Mô tả |
 
-### Tuỳ chọn 3: Phân loại theo nhóm
+### Tùy chọn 3: Các mục được Phân loại
 
-Nhóm file theo loại/danh mục với từng phần hoặc bảng con riêng.
+Nhóm các tệp theo loại/danh mục với các phần hoặc bảng con riêng biệt.
 
 ## Chiến lược Cập nhật
 
-- 🔄 **Cập nhật hiện có**: Nếu đã có bảng/mục lục thì thay thế nội dung, giữ nguyên cấu trúc
-- ➕ **Thêm mới**: Nếu chưa có thì tạo phần mới với định dạng phù hợp nhất
-- 📋 **Giữ nguyên**: Duy trì định dạng và cấu trúc markdown hiện tại
-- 🔗 **Liên kết**: Sử dụng đường dẫn tương đối cho liên kết tới file trong repository
+- 🔄 **Cập nhật hiện có**: Nếu phần bảng/chỉ mục đã tồn tại, hãy thay thế nội dung trong khi vẫn giữ nguyên cấu trúc.
+- ➕ **Thêm mới**: Nếu không có phần nào tồn tại, hãy tạo phần mới bằng định dạng phù hợp nhất.
+- 📋 **Bảo tồn**: Duy trì định dạng markdown, cấp độ tiêu đề và luồng tài liệu hiện có.
+- 🔗 **Liên kết**: Sử dụng đường dẫn tương đối cho các liên kết tệp trong kho lưu trữ.
 
-## Xác định Phần
+## Nhận dạng Phần
 
-Tìm các phần hiện có theo các mẫu:
+Tìm kiếm các phần hiện có với các mẫu sau:
 
 - Tiêu đề chứa: "index", "files", "contents", "directory", "list"
-- Bảng với các cột liên quan đến file
-- Danh sách có liên kết file
-- Comment HTML đánh dấu phần mục lục file
+- Bảng có các cột liên quan đến tệp
+- Danh sách có liên kết tệp
+- Chú thích HTML đánh dấu các phần chỉ mục tệp
 
 ## Yêu cầu
 
-- Giữ nguyên cấu trúc và định dạng markdown
-- Sử dụng đường dẫn tương đối
-- Bao gồm mô tả file nếu có
-- Sắp xếp file theo thứ tự ABC mặc định
-- Xử lý ký tự đặc biệt trong tên file
-- Đảm bảo cú pháp markdown hợp lệ
+- Bảo tồn cấu trúc và định dạng markdown hiện có
+- Sử dụng đường dẫn tương đối cho các liên kết tệp
+- Bao gồm mô tả tệp khi có sẵn
+- Sắp xếp các tệp theo thứ tự bảng chữ cái theo mặc định
+- Xử lý các ký tự đặc biệt trong tên tệp
+- Xác thực tất cả cú pháp markdown

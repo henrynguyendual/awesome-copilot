@@ -1,61 +1,67 @@
-# Thực hành tốt nhất với MSTest
+---
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "problems", "search"]
+description: "Nhận các phương pháp hay nhất cho unit test MSTest, bao gồm cả các bài kiểm thử theo hướng dữ liệu"
+---
 
-Mục tiêu của bạn là giúp tôi viết các bài kiểm thử đơn vị hiệu quả với MSTest, bao gồm cả cách tiếp cận kiểm thử tiêu chuẩn và kiểm thử dựa trên dữ liệu.
+# Các phương pháp hay nhất cho MSTest
+
+Mục tiêu của bạn là giúp tôi viết các unit test hiệu quả với MSTest, bao gồm cả các phương pháp kiểm thử tiêu chuẩn và kiểm thử theo hướng dữ liệu.
 
 ## Thiết lập dự án
 
-- Sử dụng một dự án kiểm thử riêng với quy tắc đặt tên `[ProjectName].Tests`
-- Tham chiếu gói MSTest
-- Tạo các lớp kiểm thử tương ứng với các lớp được kiểm thử (ví dụ: `CalculatorTests` cho `Calculator`)
-- Sử dụng lệnh test của .NET SDK: `dotnet test` để chạy kiểm thử
+- Sử dụng một dự án kiểm thử riêng biệt với quy ước đặt tên `[TênDựÁn].Tests`
+- Tham chiếu đến gói MSTest
+- Tạo các lớp kiểm thử khớp với các lớp đang được kiểm thử (ví dụ: `CalculatorTests` cho `Calculator`)
+- Sử dụng các lệnh kiểm thử của .NET SDK: `dotnet test` để chạy các bài kiểm thử
 
-## Cấu trúc kiểm thử
+## Cấu trúc bài kiểm thử
 
 - Sử dụng thuộc tính `[TestClass]` cho các lớp kiểm thử
 - Sử dụng thuộc tính `[TestMethod]` cho các phương thức kiểm thử
-- Tuân thủ mô hình Arrange-Act-Assert (AAA)
-- Đặt tên kiểm thử theo mẫu `MethodName_Scenario_ExpectedBehavior`
-- Sử dụng `[TestInitialize]` và `[TestCleanup]` cho thiết lập và dọn dẹp mỗi kiểm thử
-- Sử dụng `[ClassInitialize]` và `[ClassCleanup]` cho thiết lập và dọn dẹp mỗi lớp
-- Sử dụng `[AssemblyInitialize]` và `[AssemblyCleanup]` cho thiết lập và dọn dẹp ở cấp độ assembly
+- Tuân theo mẫu Arrange-Act-Assert (AAA)
+- Đặt tên các bài kiểm thử theo mẫu `TênPhươngThức_KịchBản_HànhViMongĐợi`
+- Sử dụng `[TestInitialize]` và `[TestCleanup]` để thiết lập và dọn dẹp cho mỗi bài kiểm thử
+- Sử dụng `[ClassInitialize]` và `[ClassCleanup]` để thiết lập và dọn dẹp cho mỗi lớp
+- Sử dụng `[AssemblyInitialize]` và `[AssemblyCleanup]` để thiết lập và dọn dẹp ở cấp độ assembly
 
-## Kiểm thử tiêu chuẩn
+## Các bài kiểm thử tiêu chuẩn
 
-- Tập trung kiểm thử một hành vi duy nhất
-- Tránh kiểm thử nhiều hành vi trong cùng một phương thức
-- Sử dụng các câu lệnh assert rõ ràng để thể hiện ý định
-- Chỉ bao gồm các assert cần thiết để xác minh trường hợp kiểm thử
-- Đảm bảo các kiểm thử độc lập và idempotent (có thể chạy theo bất kỳ thứ tự nào)
-- Tránh sự phụ thuộc giữa các kiểm thử
+- Giữ cho các bài kiểm thử tập trung vào một hành vi duy nhất
+- Tránh kiểm thử nhiều hành vi trong một phương thức kiểm thử
+- Sử dụng các khẳng định (assertion) rõ ràng thể hiện ý định
+- Chỉ bao gồm các khẳng định cần thiết để xác minh trường hợp kiểm thử
+- Làm cho các bài kiểm thử độc lập và có tính lũy đẳng (có thể chạy theo bất kỳ thứ tự nào)
+- Tránh sự phụ thuộc lẫn nhau giữa các bài kiểm thử
 
-## Kiểm thử dựa trên dữ liệu
+## Các bài kiểm thử theo hướng dữ liệu (Data-Driven Tests)
 
 - Sử dụng `[TestMethod]` kết hợp với các thuộc tính nguồn dữ liệu
-- Sử dụng `[DataRow]` cho dữ liệu kiểm thử inline
-- Sử dụng `[DynamicData]` cho dữ liệu kiểm thử được tạo động
-- Sử dụng `[TestProperty]` để thêm metadata vào kiểm thử
-- Đặt tên tham số có ý nghĩa trong các kiểm thử dựa trên dữ liệu
+- Sử dụng `[DataRow]` cho dữ liệu kiểm thử nội tuyến (inline)
+- Sử dụng `[DynamicData]` cho dữ liệu kiểm thử được tạo theo chương trình
+- Sử dụng `[TestProperty]` để thêm siêu dữ liệu vào các bài kiểm thử
+- Sử dụng tên tham số có ý nghĩa trong các bài kiểm thử theo hướng dữ liệu
 
-## Assertions
+## Khẳng định (Assertions)
 
-- Sử dụng `Assert.AreEqual` để kiểm tra bằng giá trị
-- Sử dụng `Assert.AreSame` để kiểm tra bằng tham chiếu
-- Sử dụng `Assert.IsTrue`/`Assert.IsFalse` cho điều kiện boolean
-- Sử dụng `CollectionAssert` cho so sánh tập hợp
-- Sử dụng `StringAssert` cho các assert đặc thù chuỗi
-- Sử dụng `Assert.Throws<T>` để kiểm thử ngoại lệ
-- Đảm bảo các assert đơn giản và có thông điệp rõ ràng khi thất bại
+- Sử dụng `Assert.AreEqual` để so sánh bằng giá trị
+- Sử dụng `Assert.AreSame` để so sánh bằng tham chiếu
+- Sử dụng `Assert.IsTrue`/`Assert.IsFalse` cho các điều kiện boolean
+- Sử dụng `CollectionAssert` để so sánh các tập hợp (collection)
+- Sử dụng `StringAssert` cho các khẳng định dành riêng cho chuỗi
+- Sử dụng `Assert.Throws<T>` để kiểm thử ngoại lệ (exception)
+- Đảm bảo các khẳng định có bản chất đơn giản và cung cấp thông báo để làm rõ khi thất bại
 
-## Mocking và Isolation
+## Mocking và Cô lập (Isolation)
 
-- Cân nhắc sử dụng Moq hoặc NSubstitute cùng MSTest
-- Mock các dependency để cô lập unit được kiểm thử
-- Sử dụng interface để dễ dàng mock
-- Cân nhắc sử dụng container DI cho các thiết lập kiểm thử phức tạp
+- Cân nhắc sử dụng Moq hoặc NSubstitute cùng với MSTest
+- Mock các phụ thuộc để cô lập các đơn vị đang được kiểm thử
+- Sử dụng interface để tạo điều kiện thuận lợi cho việc mocking
+- Cân nhắc sử dụng DI container cho các thiết lập kiểm thử phức tạp
 
-## Tổ chức kiểm thử
+## Tổ chức bài kiểm thử
 
-- Nhóm kiểm thử theo tính năng hoặc thành phần
-- Sử dụng category cho kiểm thử với `[TestCategory("Category")]`
-- Sử dụng độ ưu tiên với `[Priority(1)]` cho các kiểm thử quan trọng
-- Sử dụng `[Owner("DeveloperName")]` để chỉ định người phụ trách
+- Nhóm các bài kiểm thử theo tính năng hoặc thành phần
+- Sử dụng các danh mục kiểm thử với `[TestCategory("TênDanhMục")]`
+- Sử dụng mức độ ưu tiên của bài kiểm thử với `[Priority(1)]` cho các bài kiểm thử quan trọng
+- Sử dụng `[Owner("TênLậpTrìnhViên")]` để chỉ định quyền

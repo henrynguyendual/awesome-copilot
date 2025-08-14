@@ -1,113 +1,158 @@
-# Tạo Kế Hoạch Triển Khai
+---
+mode: "agent"
+description: "Tạo một tệp kế hoạch triển khai mới cho các tính năng mới, tái cấu trúc mã hiện có hoặc nâng cấp các gói, thiết kế, kiến trúc hoặc cơ sở hạ tầng."
+tools: ["changes", "codebase", "editFiles", "extensions", "fetch", "githubRepo", "openSimpleBrowser", "problems", "runTasks", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI"]
+---
 
-## Chỉ Thị Chính
+# Tạo Kế hoạch Triển khai
 
-Mục tiêu là tạo file kế hoạch triển khai mới cho `${input:PlanPurpose}`. Đầu ra phải có thể đọc bởi máy, xác định được, và có cấu trúc để thực hiện tự động bởi hệ thống AI hoặc con người.
+## Chỉ thị Chính
 
-## Ngữ Cảnh Thực Thi
+Mục tiêu của bạn là tạo một tệp kế hoạch triển khai mới cho `${input:PlanPurpose}`. Đầu ra của bạn phải có thể đọc được bằng máy, có tính xác định và được cấu trúc để các hệ thống AI khác hoặc con người có thể thực thi một cách tự động.
 
-Prompt này được thiết kế cho giao tiếp AI-to-AI và xử lý tự động. Tất cả hướng dẫn phải được diễn giải đúng nguyên văn và thực hiện hệ thống, không cần diễn giải hay làm rõ từ con người.
+## Bối cảnh Thực thi
 
-## Yêu Cầu Cốt Lõi
+Lời nhắc này được thiết kế cho giao tiếp giữa AI với AI và xử lý tự động. Tất cả các hướng dẫn phải được diễn giải một cách κυριολεκτικά và thực thi một cách có hệ thống mà không cần sự diễn giải hay làm rõ của con người.
 
-- Sinh kế hoạch triển khai có thể thực thi hoàn toàn bởi AI hoặc con người
-- Ngôn ngữ xác định, không mơ hồ
-- Cấu trúc nội dung để phân tích và thực thi tự động
-- Tự chứa đầy đủ ngữ cảnh, không phụ thuộc bên ngoài
+## Yêu cầu Cốt lõi
 
-## Yêu Cầu Cấu Trúc Kế Hoạch
+- Tạo ra các kế hoạch triển khai có thể thực thi hoàn toàn bởi các agent AI hoặc con người
+- Sử dụng ngôn ngữ xác định, không có sự mơ hồ
+- Cấu trúc tất cả nội dung để có thể phân tích và thực thi tự động
+- Đảm bảo tính tự chứa hoàn toàn, không có sự phụ thuộc bên ngoài để hiểu
 
-Kế hoạch phải gồm các giai đoạn riêng biệt, độc lập, có nhiệm vụ cụ thể. Mỗi giai đoạn phải có thể xử lý độc lập trừ khi nêu rõ phụ thuộc.
+## Yêu cầu về Cấu trúc Kế hoạch
 
-## Kiến Trúc Giai Đoạn
+Các kế hoạch phải bao gồm các giai đoạn riêng biệt, nguyên tử chứa các tác vụ có thể thực thi. Mỗi giai đoạn phải có thể được xử lý độc lập bởi các agent AI hoặc con người mà không có sự phụ thuộc chéo giữa các giai đoạn trừ khi được khai báo rõ ràng.
 
-- Mỗi giai đoạn phải có tiêu chí hoàn thành đo được
-- Nhiệm vụ có thể chạy song song trừ khi có phụ thuộc
-- Mô tả nhiệm vụ phải chỉ rõ file, hàm, chi tiết triển khai
-- Không yêu cầu diễn giải hoặc quyết định của con người
+## Kiến trúc Giai đoạn
 
-## Tiêu Chuẩn Triển Khai Tối Ưu Cho AI
+- Mỗi giai đoạn phải có tiêu chí hoàn thành có thể đo lường được
+- Các tác vụ trong các giai đoạn phải có thể thực thi song song trừ khi có các phụ thuộc được chỉ định
+- Tất cả các mô tả tác vụ phải bao gồm đường dẫn tệp cụ thể, tên hàm và chi tiết triển khai chính xác
+- Không có tác vụ nào yêu cầu sự diễn giải hoặc ra quyết định của con người
 
-- Ngôn ngữ rõ ràng, không mơ hồ
-- Cấu trúc dạng bảng, danh sách, dữ liệu có định dạng
-- Chỉ rõ file, dòng code, hằng số, biến cấu hình
-- Đặt tên có tiền tố chuẩn (REQ-, TASK-, ...)
-- Tiêu chí xác thực có thể kiểm tra tự động
+## Tiêu chuẩn Triển khai Tối ưu cho AI
 
-## Quy Tắc Lưu File
+- Sử dụng ngôn ngữ rõ ràng, không mơ hồ, không yêu cầu diễn giải
+- Cấu trúc tất cả nội dung dưới dạng định dạng có thể phân tích cú pháp bằng máy (bảng, danh sách, dữ liệu có cấu trúc)
+- Bao gồm đường dẫn tệp cụ thể, số dòng và tham chiếu mã chính xác khi có thể
+- Định nghĩa rõ ràng tất cả các biến, hằng số và giá trị cấu hình
+- Cung cấp ngữ cảnh đầy đủ trong mỗi mô tả tác vụ
+- Sử dụng tiền tố được tiêu chuẩn hóa cho tất cả các định danh (REQ-, TASK-, v.v.)
+- Bao gồm các tiêu chí xác thực có thể được kiểm tra tự động
 
-- Lưu trong thư mục `/plan/`
-- Đặt tên: `[mục đích]-[thành phần]-[phiên bản].md`
+## Quy cách Tệp Đầu ra
+
+- Lưu các tệp kế hoạch triển khai trong thư mục `/plan/`
+- Sử dụng quy ước đặt tên: `[purpose]-[component]-[version].md`
 - Tiền tố mục đích: `upgrade|refactor|feature|data|infrastructure|process|architecture|design`
+- Ví dụ: `upgrade-system-command-4.md`, `feature-auth-module-1.md`
+- Tệp phải là Markdown hợp lệ với cấu trúc front matter phù hợp
 
-## Cấu Trúc Mẫu Bắt Buộc
+## Cấu trúc Mẫu Bắt buộc
 
-File phải theo mẫu chuẩn đã cho, bao gồm đầy đủ các mục từ phần đầu (front matter) đến phần liên kết tài liệu.
+Tất cả các kế hoạch triển khai phải tuân thủ nghiêm ngặt mẫu sau đây. Mỗi phần là bắt buộc và phải được điền với nội dung cụ thể, có thể hành động. Các agent AI phải xác thực sự tuân thủ mẫu trước khi thực thi.
 
-## Quy Tắc Trạng Thái
+## Quy tắc Xác thực Mẫu
 
-Trạng thái phải rõ ràng: `Completed`, `In progress`, `Planned`, `Deprecated`, hoặc `On Hold` và được hiển thị bằng badge.
+- Tất cả các trường front matter phải có mặt và được định dạng đúng
+- Tất cả các tiêu đề phần phải khớp chính xác (phân biệt chữ hoa chữ thường)
+- Tất cả các tiền tố định danh phải tuân theo định dạng đã chỉ định
+- Các bảng phải bao gồm tất cả các cột bắt buộc
+- Không được để lại văn bản giữ chỗ nào trong đầu ra cuối cùng
+
+## Trạng thái
+
+Trạng thái của kế hoạch triển khai phải được định nghĩa rõ ràng trong front matter và phải phản ánh tình trạng hiện tại của kế hoạch. Trạng thái có thể là một trong những giá trị sau (màu_trạng_thái trong ngoặc): `Completed` (huy hiệu màu xanh lá cây sáng), `In progress` (huy hiệu màu vàng), `Planned` (huy hiệu màu xanh dương), `Deprecated` (huy hiệu màu đỏ), hoặc `On Hold` (huy hiệu màu cam). Nó cũng nên được hiển thị dưới dạng huy hiệu trong phần giới thiệu.
 
 ```md
 ---
-goal: [Tiêu đề ngắn gọn mô tả mục tiêu kế hoạch]
-version: [Tùy chọn: ví dụ 1.0, ngày]
+goal: [Tiêu đề ngắn gọn mô tả mục tiêu của Kế hoạch Triển khai Gói]
+version: [Tùy chọn: ví dụ: 1.0, Ngày]
 date_created: [YYYY-MM-DD]
-last_updated: [Tùy chọn]
-owner: [Tùy chọn]
+last_updated: [Tùy chọn: YYYY-MM-DD]
+owner: [Tùy chọn: Nhóm/Cá nhân chịu trách nhiệm về đặc tả này]
 status: 'Completed'|'In progress'|'Planned'|'Deprecated'|'On Hold'
-tags: [Tùy chọn: danh sách thẻ]
+tags: [Tùy chọn: Danh sách các thẻ hoặc danh mục liên quan, ví dụ: `feature`, `upgrade`, `chore`, `architecture`, `migration`, `bug`, v.v.]
 ---
 
-# Giới Thiệu
+# Giới thiệu
 
-![Status: <status>](https://img.shields.io/badge/status-<status>-<status_color>)
+![Trạng thái: <status>](https://img.shields.io/badge/status-<status>-<status_color>)
 
-[Mô tả ngắn gọn mục tiêu kế hoạch.]
+[Một đoạn giới thiệu ngắn gọn về kế hoạch và mục tiêu mà nó dự định đạt được.]
 
-## 1. Yêu Cầu & Ràng Buộc
+## 1. Yêu cầu & Ràng buộc
 
-- **REQ-001**: ...
-- **SEC-001**: ...
-- **CON-001**: ...
+[Liệt kê rõ ràng tất cả các yêu cầu và ràng buộc ảnh hưởng đến kế hoạch và cách thức triển khai nó. Sử dụng dấu đầu dòng hoặc bảng để rõ ràng.]
 
-## 2. Các Bước Triển Khai
+- **REQ-001**: Yêu cầu 1
+- **SEC-001**: Yêu cầu bảo mật 1
+- **[3 CHỮ CÁI]-001**: Yêu cầu khác 1
+- **CON-001**: Ràng buộc 1
+- **GUD-001**: Hướng dẫn 1
+- **PAT-001**: Mẫu cần tuân theo 1
 
-### Giai Đoạn 1
+## 2. Các bước Triển khai
 
-- GOAL-001: ...
+### Giai đoạn Triển khai 1
 
-| Task | Description | Completed | Date |
-|------|-------------|-----------|------|
-| TASK-001 | ... | ✅ | ... |
+- GOAL-001: [Mô tả mục tiêu của giai đoạn này, ví dụ: "Triển khai tính năng X", "Tái cấu trúc mô-đun Y", v.v.]
 
-### Giai Đoạn 2
+| Tác vụ   | Mô tả              | Hoàn thành | Ngày       |
+| -------- | ------------------ | ---------- | ---------- |
+| TASK-001 | Mô tả của tác vụ 1 | ✅         | 2025-04-25 |
+| TASK-002 | Mô tả của tác vụ 2 |            |            |
+| TASK-003 | Mô tả của tác vụ 3 |            |            |
 
-...
+### Giai đoạn Triển khai 2
 
-## 3. Các Phương Án
+- GOAL-002: [Mô tả mục tiêu của giai đoạn này, ví dụ: "Triển khai tính năng X", "Tái cấu trúc mô-đun Y", v.v.]
 
-- **ALT-001**: ...
-- **ALT-002**: ...
+| Tác vụ   | Mô tả              | Hoàn thành | Ngày |
+| -------- | ------------------ | ---------- | ---- |
+| TASK-004 | Mô tả của tác vụ 4 |            |      |
+| TASK-005 | Mô tả của tác vụ 5 |            |      |
+| TASK-006 | Mô tả của tác vụ 6 |            |      |
 
-## 4. Phụ Thuộc
+## 3. Các phương án thay thế
 
-- **DEP-001**: ...
+[Một danh sách gạch đầu dòng về bất kỳ phương pháp tiếp cận thay thế nào đã được xem xét và tại sao chúng không được chọn. Điều này giúp cung cấp bối cảnh và lý do cho phương pháp đã chọn.]
 
-## 5. File
+- **ALT-001**: Phương pháp thay thế 1
+- **ALT-002**: Phương pháp thay thế 2
 
-- **FILE-001**: ...
+## 4. Phụ thuộc
 
-## 6. Kiểm Thử
+[Liệt kê bất kỳ sự phụ thuộc nào cần được giải quyết, chẳng hạn như thư viện, framework hoặc các thành phần khác mà kế hoạch dựa vào.]
 
-- **TEST-001**: ...
+- **DEP-001**: Phụ thuộc 1
+- **DEP-002**: Phụ thuộc 2
 
-## 7. Rủi Ro & Giả Định
+## 5. Tệp
 
-- **RISK-001**: ...
-- **ASSUMPTION-001**: ...
+[Liệt kê các tệp sẽ bị ảnh hưởng bởi tính năng hoặc tác vụ tái cấu trúc.]
 
-## 8. Tài Liệu Liên Quan
+- **FILE-001**: Mô tả của tệp 1
+- **FILE-002**: Mô tả của tệp 2
 
-[Link ...]
+## 6. Kiểm thử
+
+[Liệt kê các bài kiểm thử cần được triển khai để xác minh tính năng hoặc tác vụ tái cấu trúc.]
+
+- **TEST-001**: Mô tả của bài kiểm thử 1
+- **TEST-002**: Mô tả của bài kiểm thử 2
+
+## 7. Rủi ro & Giả định
+
+[Liệt kê bất kỳ rủi ro hoặc giả định nào liên quan đến việc triển khai kế hoạch.]
+
+- **RISK-001**: Rủi ro 1
+- **ASSUMPTION-001**: Giả định 1
+
+## 8. Đặc tả liên quan / Đọc thêm
+
+[Liên kết đến đặc tả liên quan 1]
+[Liên kết đến tài liệu bên ngoài có liên quan]
 ```

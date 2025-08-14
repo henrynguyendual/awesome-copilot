@@ -1,111 +1,136 @@
-# Tạo Tài Liệu Đặc Tả
-
-Mục tiêu của bạn là tạo một file đặc tả mới cho `${input:SpecPurpose}`.
-
-File đặc tả phải xác định các yêu cầu, ràng buộc và giao diện của các thành phần giải pháp một cách rõ ràng, không mơ hồ và có cấu trúc để Generative AI có thể sử dụng hiệu quả. Tuân theo các tiêu chuẩn tài liệu đã được thiết lập và đảm bảo nội dung có thể đọc được bởi máy và tự chứa đầy đủ.
-
-## Thực Hành Tốt Nhất Cho Đặc Tả Sẵn Sàng Cho AI
-
-- Sử dụng ngôn ngữ chính xác, rõ ràng, không mơ hồ
-- Phân biệt rõ yêu cầu, ràng buộc và khuyến nghị
-- Sử dụng định dạng có cấu trúc (heading, danh sách, bảng) để dễ phân tích
-- Tránh sử dụng thành ngữ, ẩn dụ hoặc tham chiếu phụ thuộc ngữ cảnh
-- Định nghĩa tất cả từ viết tắt và thuật ngữ chuyên ngành
-- Bao gồm ví dụ và trường hợp biên khi áp dụng
-- Đảm bảo tài liệu tự chứa, không phụ thuộc vào ngữ cảnh bên ngoài
-
-File đặc tả cần được lưu trong thư mục `/spec/` và đặt tên theo quy tắc: `spec-[a-z0-9-]+.md`, bắt đầu bằng mục đích chính (schema, tool, data, infrastructure, process, architecture, hoặc design) và mô tả nội dung.
-
-File phải được định dạng Markdown chuẩn.
-
-## Mẫu Đặc Tả Bắt Buộc
-
-```md
 ---
-title: [Tiêu đề ngắn gọn mô tả nội dung đặc tả]
-version: [Tùy chọn: ví dụ 1.0, Ngày]
+mode: "agent"
+description: "Tạo một tệp đặc tả mới cho giải pháp, được tối ưu hóa cho việc sử dụng bởi AI Tạo Sinh."
+tools: ["changes", "codebase", "editFiles", "extensions", "fetch", "githubRepo", "openSimpleBrowser", "problems", "runTasks", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI"]
+---
+
+# Tạo Đặc Tả Kỹ Thuật
+
+Mục tiêu của bạn là tạo một tệp đặc tả kỹ thuật mới cho `${input:SpecPurpose}`.
+
+Tệp đặc tả phải xác định các yêu cầu, ràng buộc và giao diện cho các thành phần của giải pháp một cách rõ ràng, không mơ hồ và có cấu trúc để các AI Tạo Sinh có thể sử dụng hiệu quả. Tuân thủ các tiêu chuẩn tài liệu đã được thiết lập và đảm bảo nội dung có thể đọc được bằng máy và khép kín.
+
+## Các Thực Hành Tốt Nhất cho Đặc Tả Sẵn Sàng cho AI
+
+- Sử dụng ngôn ngữ chính xác, rõ ràng và không mơ hồ.
+- Phân biệt rõ ràng giữa các yêu cầu, ràng buộc và khuyến nghị.
+- Sử dụng định dạng có cấu trúc (tiêu đề, danh sách, bảng) để dễ dàng phân tích cú pháp.
+- Tránh các thành ngữ, ẩn dụ hoặc các tham chiếu phụ thuộc vào ngữ cảnh.
+- Định nghĩa tất cả các từ viết tắt và thuật ngữ chuyên ngành.
+- Bao gồm các ví dụ và các trường hợp biên khi có thể.
+- Đảm bảo tài liệu là khép kín và không dựa vào ngữ cảnh bên ngoài.
+
+Đặc tả nên được lưu trong thư mục [/spec/](/spec/) và được đặt tên theo quy ước sau: `spec-[a-z0-9-]+.md`, trong đó tên phải mô tả nội dung của đặc tả và bắt đầu bằng mục đích cấp cao, là một trong các loại sau [lược đồ, công cụ, dữ liệu, cơ sở hạ tầng, quy trình, kiến trúc, hoặc thiết kế].
+
+Tệp đặc tả phải được định dạng bằng Markdown hợp lệ.
+
+Các tệp đặc tả phải tuân theo mẫu dưới đây, đảm bảo tất cả các phần được điền đầy đủ. Phần front matter của markdown phải được cấu trúc chính xác theo ví dụ sau:
+
+````md
+---
+title: [Tiêu đề ngắn gọn mô tả trọng tâm của đặc tả]
+version: [Tùy chọn: ví dụ: 1.0, Ngày]
 date_created: [YYYY-MM-DD]
-last_updated: [Tùy chọn]
-owner: [Tùy chọn: Nhóm/cá nhân chịu trách nhiệm]
-tags: [Tùy chọn: danh sách thẻ, ví dụ: `infrastructure`, `process`, `design`, `app`]
+last_updated: [Tùy chọn: YYYY-MM-DD]
+owner: [Tùy chọn: Nhóm/Cá nhân chịu trách nhiệm về đặc tả này]
+tags: [Tùy chọn: Danh sách các thẻ hoặc danh mục liên quan, ví dụ: `cơ sở hạ tầng`, `quy trình`, `thiết kế`, `ứng dụng`, v.v.]
 ---
 
-# Giới Thiệu
+# Giới thiệu
 
-[Mô tả ngắn gọn về mục tiêu của đặc tả.]
+[Một đoạn giới thiệu ngắn gọn về đặc tả và mục tiêu mà nó dự định đạt được.]
 
-## 1. Mục Đích & Phạm Vi
+## 1. Mục đích & Phạm vi
 
-[Mô tả rõ ràng mục tiêu và phạm vi áp dụng của đặc tả. Nêu đối tượng sử dụng và giả định.]
+[Cung cấp một mô tả rõ ràng, ngắn gọn về mục đích của đặc tả và phạm vi áp dụng của nó. Nêu rõ đối tượng dự kiến và bất kỳ giả định nào.]
 
-## 2. Định Nghĩa
+## 2. Định nghĩa
 
-[Liệt kê và định nghĩa tất cả từ viết tắt, thuật ngữ chuyên ngành.]
+[Liệt kê và định nghĩa tất cả các từ viết tắt, chữ viết tắt và thuật ngữ chuyên ngành được sử dụng trong đặc tả này.]
 
-## 3. Yêu Cầu, Ràng Buộc & Hướng Dẫn
+## 3. Yêu cầu, Ràng buộc & Hướng dẫn
+
+[Liệt kê rõ ràng tất cả các yêu cầu, ràng buộc, quy tắc và hướng dẫn. Sử dụng dấu đầu dòng hoặc bảng để rõ ràng.]
 
 - **REQ-001**: Yêu cầu 1
 - **SEC-001**: Yêu cầu bảo mật 1
-- **[3 CHỮ]-001**: Yêu cầu khác
+- **[3 CHỮ CÁI]-001**: Yêu cầu khác 1
 - **CON-001**: Ràng buộc 1
 - **GUD-001**: Hướng dẫn 1
-- **PAT-001**: Mẫu thiết kế 1
+- **PAT-001**: Mẫu cần tuân theo 1
 
-## 4. Giao Diện & Hợp Đồng Dữ Liệu
+## 4. Giao diện & Hợp đồng Dữ liệu
 
-[Mô tả API, giao diện, hợp đồng dữ liệu. Dùng bảng hoặc code block cho schema và ví dụ.]
+[Mô tả các giao diện, API, hợp đồng dữ liệu hoặc các điểm tích hợp. Sử dụng bảng hoặc khối mã cho các lược đồ và ví dụ.]
 
-## 5. Tiêu Chí Chấp Nhận
+## 5. Tiêu chí Chấp nhận
 
-- **AC-001**: Given [ngữ cảnh], When [hành động], Then [kết quả mong đợi]
-- **AC-002**: Hệ thống sẽ [hành vi] khi [điều kiện]
-- **AC-003**: [Tiêu chí khác]
+[Xác định các tiêu chí chấp nhận rõ ràng, có thể kiểm thử cho mỗi yêu cầu bằng cách sử dụng định dạng Given-When-Then (Biết rằng-Khi-Thì) khi thích hợp.]
 
-## 6. Chiến Lược Kiểm Thử Tự Động
+- **AC-001**: Biết rằng [ngữ cảnh], Khi [hành động], Thì [kết quả mong đợi]
+- **AC-002**: Hệ thống sẽ [hành vi cụ thể] khi [điều kiện]
+- **AC-003**: [Các tiêu chí chấp nhận bổ sung khi cần]
 
-- **Cấp độ kiểm thử**: Unit, Integration, End-to-End
-- **Framework**: MSTest, FluentAssertions, Moq (cho .NET)
-- **Quản lý dữ liệu test**: [cách tạo và dọn dữ liệu]
-- **Tích hợp CI/CD**: [tích hợp kiểm thử tự động vào pipeline GitHub Actions]
-- **Yêu cầu bao phủ code**: [mức tối thiểu]
-- **Kiểm thử hiệu năng**: [cách thực hiện]
+## 6. Chiến lược Kiểm thử Tự động
 
-## 7. Lý Do & Bối Cảnh
+[Xác định phương pháp tiếp cận kiểm thử, các framework và các yêu cầu tự động hóa.]
 
-[Giải thích lý do cho yêu cầu, ràng buộc và hướng dẫn.]
+- **Các cấp độ kiểm thử**: Đơn vị, Tích hợp, Đầu cuối
+- **Frameworks**: MSTest, FluentAssertions, Moq (cho các ứng dụng .NET)
+- **Quản lý Dữ liệu Kiểm thử**: [phương pháp tạo và dọn dẹp dữ liệu kiểm thử]
+- **Tích hợp CI/CD**: [kiểm thử tự động trong các pipeline của GitHub Actions]
+- **Yêu cầu về Độ bao phủ**: [ngưỡng độ bao phủ mã tối thiểu]
+- **Kiểm thử Hiệu năng**: [phương pháp kiểm thử tải và hiệu năng]
 
-## 8. Phụ Thuộc & Tích Hợp Bên Ngoài
+## 7. Lý do & Bối cảnh
 
-### Hệ thống bên ngoài
-- **EXT-001**: [Tên hệ thống] - [Mục đích và cách tích hợp]
+[Giải thích lý do đằng sau các yêu cầu, ràng buộc và hướng dẫn. Cung cấp bối cảnh cho các quyết định thiết kế.]
 
-### Dịch vụ bên thứ ba
-- **SVC-001**: [Tên dịch vụ] - [Khả năng và SLA yêu cầu]
+## 8. Phụ thuộc & Tích hợp Bên ngoài
 
-### Phụ thuộc hạ tầng
-- **INF-001**: [Thành phần hạ tầng] - [Yêu cầu và ràng buộc]
+[Xác định các hệ thống, dịch vụ bên ngoài và các phụ thuộc kiến trúc cần thiết cho đặc tả này. Tập trung vào **cái gì** cần thiết thay vì **cách thức** triển khai. Tránh các phiên bản gói hoặc thư viện cụ thể trừ khi chúng đại diện cho các ràng buộc kiến trúc.]
+
+### Các hệ thống bên ngoài
+
+- **EXT-001**: [Tên hệ thống bên ngoài] - [Mục đích và loại tích hợp]
+
+### Dịch vụ của bên thứ ba
+
+- **SVC-001**: [Tên dịch vụ] - [Các khả năng cần thiết và yêu cầu SLA]
+
+### Phụ thuộc cơ sở hạ tầng
+
+- **INF-001**: [Thành phần cơ sở hạ tầng] - [Yêu cầu và ràng buộc]
 
 ### Phụ thuộc dữ liệu
-- **DAT-001**: [Nguồn dữ liệu ngoài] - [Định dạng, tần suất, yêu cầu truy cập]
 
-### Phụ thuộc nền tảng
-- **PLT-001**: [Yêu cầu nền tảng] - [Phiên bản và lý do]
+- **DAT-001**: [Nguồn dữ liệu bên ngoài] - [Định dạng, tần suất và yêu cầu truy cập]
 
-### Yêu cầu tuân thủ
-- **COM-001**: [Yêu cầu pháp lý hoặc tuân thủ] - [Ảnh hưởng đến triển khai]
+### Phụ thuộc nền tảng công nghệ
 
-## 9. Ví Dụ & Trường Hợp Biên
+- **PLT-001**: [Yêu cầu nền tảng/runtime] - [Ràng buộc phiên bản và lý do]
+
+### Phụ thuộc tuân thủ
+
+- **COM-001**: [Yêu cầu quy định hoặc tuân thủ] - [Tác động đến việc triển khai]
+
+**Lưu ý**: Phần này nên tập trung vào các phụ thuộc kiến trúc và kinh doanh, không phải các triển khai gói cụ thể. Ví dụ, chỉ định "thư viện xác thực OAuth 2.0" thay vì "Microsoft.AspNetCore.Authentication.JwtBearer v6.0.1".
+
+## 9. Ví dụ & Trường hợp Biên
 
 ```code
-// Ví dụ minh họa bao gồm cả trường hợp biên
+// Đoạn mã hoặc ví dụ dữ liệu minh họa việc áp dụng đúng các hướng dẫn, bao gồm cả các trường hợp biên
+```
+````
+
 ```
 
-## 10. Tiêu Chí Xác Thực
+## 10. Tiêu chí Xác thực
 
-[Danh sách các tiêu chí hoặc bài test để xác thực việc tuân thủ đặc tả.]
+[Liệt kê các tiêu chí hoặc bài kiểm tra phải được thỏa mãn để tuân thủ đặc tả này.]
 
-## 11. Đặc Tả Liên Quan / Tài Liệu Tham Khảo
+## 11. Đặc tả Liên quan / Đọc thêm
 
-[Link tới đặc tả liên quan]
-[Link tới tài liệu bên ngoài]
+[Liên kết đến đặc tả liên quan 1]
+[Liên kết đến tài liệu bên ngoài có liên quan]
 ```

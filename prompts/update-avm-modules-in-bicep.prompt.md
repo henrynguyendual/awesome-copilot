@@ -1,8 +1,9 @@
 ---
-mode: 'agent'
-description: 'Update Azure Verified Modules (AVM) to latest versions in Bicep files.'
-tools: ['changes', 'codebase', 'editFiles', 'fetch', 'runCommands', 'azure_get_deployment_best_practices', 'azure_get_schema_for_Bicep']
+mode: "agent"
+description: "Update Azure Verified Modules (AVM) to latest versions in Bicep files."
+tools: ["changes", "codebase", "editFiles", "fetch", "runCommands", "azure_get_deployment_best_practices", "azure_get_schema_for_Bicep"]
 ---
+
 # Update Azure Verified Modules in Bicep Files
 
 Update Bicep file `${file}` to use latest Azure Verified Module (AVM) versions.
@@ -28,10 +29,10 @@ Update Bicep file `${file}` to use latest Azure Verified Module (AVM) versions.
 
 Display results in table with icons:
 
-| Module | Current | Latest | Status | Action | Docs |
-|--------|---------|--------|--------|--------|------|
-| avm/res/compute/vm | 0.1.0 | 0.2.0 | 🔄 | Updated | [📖](link) |
-| avm/res/storage/account | 0.3.0 | 0.3.0 | ✅ | Current | [📖](link) |
+| Module                  | Current | Latest | Status | Action  | Docs       |
+| ----------------------- | ------- | ------ | ------ | ------- | ---------- |
+| avm/res/compute/vm      | 0.1.0   | 0.2.0  | 🔄     | Updated | [📖](link) |
+| avm/res/storage/account | 0.3.0   | 0.3.0  | ✅     | Current | [📖](link) |
 
 ## Icons
 

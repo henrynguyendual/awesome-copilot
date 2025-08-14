@@ -1,95 +1,71 @@
-# Thực hành tốt nhất với Spring Boot và Kotlin
+---
+mode: "agent"
+tools: ["changes", "codebase", "editFiles", "problems", "search"]
+description: "Nhận các phương pháp hay nhất để phát triển ứng dụng với Spring Boot và Kotlin."
+---
 
-Mục tiêu của bạn là giúp tôi viết ứng dụng Spring Boot chất lượng cao,
-đúng chuẩn Kotlin.
+# Các phương pháp hay nhất cho Spring Boot với Kotlin
 
-## Cấu hình & Cấu trúc dự án
+Mục tiêu của bạn là giúp tôi viết các ứng dụng Spring Boot chất lượng cao, mang tính thành ngữ (idiomatic) bằng Kotlin.
 
--   **Công cụ build:** Sử dụng Maven (`pom.xml`) hoặc Gradle
-    (`build.gradle`) với plugin Kotlin (`kotlin-maven-plugin` hoặc
-    `org.jetbrains.kotlin.jvm`).
--   **Kotlin Plugins:** Với JPA, bật plugin `kotlin-jpa` để tự động làm
-    cho các entity `open` mà không cần code rườm rà.
--   **Spring Boot Starters:** Sử dụng các starter như
-    `spring-boot-starter-web`, `spring-boot-starter-data-jpa` như bình
-    thường.
--   **Cấu trúc package:** Tổ chức code theo tính năng (feature/domain)
-    thay vì theo tầng.
+## Thiết lập & Cấu trúc dự án
 
-## Dependency Injection & Components
+- **Công cụ xây dựng (Build Tool):** Sử dụng Maven (`pom.xml`) hoặc Gradle (`build.gradle`) với các plugin Kotlin (`kotlin-maven-plugin` hoặc `org.jetbrains.kotlin.jvm`).
+- **Plugin Kotlin:** Đối với JPA, hãy bật plugin `kotlin-jpa` để tự động làm cho các lớp entity `open` mà không cần mã soạn sẵn (boilerplate).
+- **Starters:** Sử dụng Spring Boot starters (ví dụ: `spring-boot-starter-web`, `spring-boot-starter-data-jpa`) như bình thường.
+- **Cấu trúc gói (Package Structure):** Tổ chức mã theo tính năng/miền (ví dụ: `com.example.app.order`, `com.example.app.user`) thay vì theo lớp (layer).
 
--   **Primary Constructor:** Luôn sử dụng constructor chính để inject
-    dependency --- đây là cách viết chuẩn Kotlin.
--   **Tính bất biến:** Khai báo dependency với `private val` trong
-    constructor. Ưu tiên `val` thay vì `var` để giữ bất biến.
--   **Component Stereotypes:** Sử dụng `@Service`, `@Repository`,
-    `@RestController` như Java.
+## Tiêm phụ thuộc & Các thành phần (Dependency Injection & Components)
 
-## Cấu hình
+- **Constructor chính (Primary Constructors):** Luôn sử dụng constructor chính để tiêm các phụ thuộc bắt buộc. Đây là cách tiếp cận thành ngữ và ngắn gọn nhất trong Kotlin.
+- **Tính bất biến (Immutability):** Khai báo các phụ thuộc là `private val` trong constructor chính. Ưu tiên `val` hơn `var` ở mọi nơi để thúc đẩy tính bất biến.
+- **Các stereotype thành phần (Component Stereotypes):** Sử dụng các chú thích `@Service`, `@Repository`, và `@RestController` giống như trong Java.
 
--   **Externalized Configuration:** Dùng `application.yml` vì dễ đọc và
-    hỗ trợ cấu trúc phân cấp.
--   **Type-Safe Properties:** Dùng `@ConfigurationProperties` với
-    `data class` để tạo object cấu hình bất biến, type-safe.
--   **Profiles:** Dùng Spring Profiles (`application-dev.yml`,
-    `application-prod.yml`) để quản lý cấu hình theo môi trường.
--   **Quản lý Secrets:** Không hardcode secrets. Sử dụng biến môi trường
-    hoặc công cụ như HashiCorp Vault, AWS Secrets Manager.
+## Cấu hình (Configuration)
 
-## Web Layer (Controller)
+- **Cấu hình bên ngoài (Externalized Configuration):** Sử dụng `application.yml` vì cấu trúc phân cấp và dễ đọc của nó.
+- **Thuộc tính an toàn kiểu (Type-Safe Properties):** Sử dụng `@ConfigurationProperties` với `data class` để tạo các đối tượng cấu hình bất biến, an toàn về kiểu.
+- **Hồ sơ (Profiles):** Sử dụng Spring Profiles (`application-dev.yml`, `application-prod.yml`) để quản lý các cấu hình dành riêng cho từng môi trường.
+- **Quản lý bí mật (Secrets Management):** Không bao giờ mã hóa cứng (hardcode) các bí mật. Sử dụng biến môi trường hoặc một công cụ quản lý bí mật chuyên dụng như HashiCorp Vault hoặc AWS Secrets Manager.
 
--   **RESTful APIs:** Thiết kế endpoint REST rõ ràng, nhất quán.
--   **Data Class cho DTO:** Dùng `data class` cho DTO để có sẵn
-    `equals()`, `hashCode()`, `toString()`, `copy()` và bất biến.
--   **Validation:** Sử dụng Java Bean Validation (`@Valid`, `@NotNull`,
-    `@Size`) trên DTO.
--   **Xử lý lỗi:** Tạo global exception handler với
-    `@ControllerAdvice` + `@ExceptionHandler`.
+## Lớp Web (Controllers)
 
-## Service Layer
+- **API RESTful:** Thiết kế các điểm cuối (endpoint) RESTful rõ ràng và nhất quán.
+- **Data class cho DTO:** Sử dụng `data class` của Kotlin cho tất cả các DTO. Điều này cung cấp miễn phí các hàm `equals()`, `hashCode()`, `toString()`, và `copy()` và thúc đẩy tính bất biến.
+- **Xác thực (Validation):** Sử dụng Java Bean Validation (JSR 380) với các chú thích (`@Valid`, `@NotNull`, `@Size`) trên các data class DTO của bạn.
+- **Xử lý lỗi (Error Handling):** Triển khai một trình xử lý ngoại lệ toàn cục bằng cách sử dụng `@ControllerAdvice` và `@ExceptionHandler` để có các phản hồi lỗi nhất quán.
 
--   **Business Logic:** Đặt toàn bộ logic nghiệp vụ trong class
-    `@Service`.
--   **Statelessness:** Service nên không lưu trạng thái.
--   **Quản lý Transaction:** Dùng `@Transactional` ở class hoặc method
-    khi cần.
+## Lớp Dịch vụ (Service Layer)
 
-## Data Layer (Repository)
+- **Logic nghiệp vụ (Business Logic):** Đóng gói logic nghiệp vụ trong các lớp `@Service`.
+- **Không trạng thái (Statelessness):** Các dịch vụ nên không có trạng thái.
+- **Quản lý giao dịch (Transaction Management):** Sử dụng `@Transactional` trên các phương thức dịch vụ. Trong Kotlin, điều này có thể được áp dụng ở cấp lớp hoặc hàm.
 
--   **JPA Entities:** Entity phải là `open`. Nên dùng plugin
-    `kotlin-jpa` để tự động xử lý.
--   **Null Safety:** Tận dụng null-safety của Kotlin để phân biệt rõ
-    field bắt buộc và tùy chọn.
--   **Spring Data JPA:** Kế thừa `JpaRepository` hoặc `CrudRepository`.
--   **Coroutines:** Với app reactive, dùng hỗ trợ coroutine của Spring
-    Boot.
+## Lớp Dữ liệu (Data Layer - Repositories)
 
-## Logging
+- **Entity JPA:** Định nghĩa các entity dưới dạng class. Hãy nhớ rằng chúng phải là `open`. Rất khuyến khích sử dụng plugin trình biên dịch `kotlin-jpa` để xử lý việc này một cách tự động.
+- **An toàn null (Null Safety):** Tận dụng tính năng an toàn null của Kotlin (`?`) để xác định rõ ràng trường entity nào là tùy chọn hoặc bắt buộc ở cấp kiểu dữ liệu.
+- **Spring Data JPA:** Sử dụng các repository của Spring Data JPA bằng cách kế thừa `JpaRepository` hoặc `CrudRepository`.
+- **Coroutines:** Đối với các ứng dụng phản ứng (reactive), hãy tận dụng sự hỗ trợ của Spring Boot cho Kotlin Coroutines trong lớp dữ liệu.
 
--   **Companion Object Logger:** Khai báo logger trong companion object:
+## Ghi log (Logging)
 
-    ``` kotlin
-    companion object {
-        private val logger = LoggerFactory.getLogger(MyClass::class.java)
-    }
-    ```
+- **Logger trong Companion Object:** Cách thành ngữ để khai báo một logger là trong một companion object.
+  ```kotlin
+  companion object {
+      private val logger = LoggerFactory.getLogger(MyClass::class.java)
+  }
+  ```
+- **Ghi log có tham số (Parameterized Logging):** Sử dụng các thông điệp có tham số (`logger.info("Đang xử lý người dùng {}...", userId)`) để tăng hiệu suất và sự rõ ràng.
 
--   **Parameterized Logging:** Dùng message có tham số để tối ưu hiệu
-    năng.
+## Kiểm thử (Testing)
 
-## Testing
+- **JUnit 5:** JUnit 5 là mặc định và hoạt động liền mạch với Kotlin.
+- **Thư viện kiểm thử thành ngữ:** Để có các bài kiểm thử trôi chảy và thành ngữ hơn, hãy xem xét sử dụng **Kotest** cho các khẳng định (assertions) và **MockK** để tạo đối tượng giả (mocking). Chúng được thiết kế cho Kotlin và cung cấp cú pháp biểu cảm hơn.
+- **Test Slices:** Sử dụng các chú thích test slice như `@WebMvcTest` hoặc `@DataJpaTest` để kiểm thử các phần cụ thể của ứng dụng.
+- **Testcontainers:** Sử dụng Testcontainers để có các bài kiểm thử tích hợp đáng tin cậy với cơ sở dữ liệu thực, message broker, v.v.
 
--   **JUnit 5:** Mặc định hoạt động tốt với Kotlin.
--   **Thư viện Test chuẩn Kotlin:** Dùng **Kotest** (assertion) và
-    **MockK** (mocking) để có cú pháp Kotlin rõ ràng.
--   **Test Slice:** Dùng `@WebMvcTest`, `@DataJpaTest` để test một phần
-    app.
--   **Testcontainers:** Dùng Testcontainers để test tích hợp với DB hoặc
-    message broker thực.
+## Coroutines & Lập trình bất đồng bộ
 
-## Coroutines & Lập trình async
-
--   **Hàm `suspend`:** Dùng cho code async non-blocking trong controller
-    và service.
--   **Structured Concurrency:** Dùng `coroutineScope` hoặc
-    `supervisorScope` để quản lý vòng đời coroutine.
+- **Hàm `suspend`:** Đối với mã bất đồng bộ không chặn, hãy sử dụng các hàm `suspend` trong controllers và services của bạn. Spring Boot có hỗ trợ tuyệt vời cho coroutines.
+- **Đồng thời có cấu trúc (Structured Concurrency):** Sử dụng `coroutineScope` hoặc `supervisorScope` để quản lý vòng đời của các

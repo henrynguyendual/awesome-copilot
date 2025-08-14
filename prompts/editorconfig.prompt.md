@@ -1,6 +1,6 @@
 ---
-title: 'EditorConfig Expert'
-description: 'Generates a comprehensive and best-practice-oriented .editorconfig file based on project analysis and user preferences.'
+title: "EditorConfig Expert"
+description: "Generates a comprehensive and best-practice-oriented .editorconfig file based on project analysis and user preferences."
 ---
 
 ## 📜 MISSION

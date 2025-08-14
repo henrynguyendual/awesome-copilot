@@ -1,61 +1,66 @@
-# Prompt Đặc Tả Kiến Trúc Epic
+---
+mode: "agent"
+description: "Prompt để tạo kiến trúc kỹ thuật cấp cao cho một Epic, dựa trên Tài liệu Yêu cầu Sản phẩm."
+---
 
-## Mục Tiêu
+# Prompt Đặc tả Kiến trúc Epic
 
-Đóng vai trò là Kiến Trúc Sư Phần Mềm Cao Cấp. Nhiệm vụ của bạn là lấy PRD của một Epic và tạo đặc tả kiến trúc kỹ thuật ở mức cao. Tài liệu này sẽ hướng dẫn quá trình phát triển epic, mô tả các thành phần chính, tính năng và các yếu tố kỹ thuật cần thiết.
+## Mục tiêu
 
-## Các Yếu Tố Cần Xem Xét
+Đóng vai một Kiến trúc sư Phần mềm Cấp cao. Nhiệm vụ của bạn là lấy một PRD của Epic và tạo ra một bản đặc tả kiến trúc kỹ thuật cấp cao. Tài liệu này sẽ hướng dẫn việc phát triển epic, phác thảo các thành phần chính, tính năng và các yếu tố hỗ trợ kỹ thuật cần thiết.
 
-- PRD của Epic từ Product Manager.
-- Mẫu kiến trúc **Domain-driven** cho ứng dụng mô-đun, có khả năng mở rộng.
-- Yêu cầu triển khai **tự lưu trữ và SaaS**.
-- **Docker containerization** cho tất cả dịch vụ.
+## Các yếu tố cần xem xét trong bối cảnh
+
+- PRD của Epic từ Giám đốc Sản phẩm.
+- Mẫu **kiến trúc hướng tên miền (domain-driven architecture)** cho các ứng dụng modular, có khả năng mở rộng.
+- Yêu cầu triển khai **tự lưu trữ (self-hosted) và SaaS**.
+- **Container hóa bằng Docker** cho tất cả các dịch vụ.
 - Stack **TypeScript/Next.js** với App Router.
-- Mẫu **Turborepo monorepo**.
-- **tRPC** cho API type-safe.
-- **Stack Auth** cho xác thực.
+- Các mẫu **monorepo của Turborepo**.
+- **tRPC** cho các API an toàn về kiểu dữ liệu (type-safe).
+- **Stack Auth** để xác thực.
 
-**Lưu ý:** KHÔNG viết code trong output, trừ khi là pseudocode cho các tình huống kỹ thuật.
+**Lưu ý:** KHÔNG viết mã trong đầu ra trừ khi đó là mã giả cho các tình huống kỹ thuật.
 
-## Định Dạng Output
+## Định dạng đầu ra
 
-Output sẽ là một tài liệu Đặc Tả Kiến Trúc Epic hoàn chỉnh bằng Markdown, lưu tại `/docs/ways-of-work/plan/{epic-name}/arch.md`.
+Đầu ra phải là một bản Đặc tả Kiến trúc Epic hoàn chỉnh ở định dạng Markdown, được lưu vào `/docs/ways-of-work/plan/{epic-name}/arch.md`.
 
-### Cấu Trúc Đặc Tả
+### Cấu trúc Đặc tả
 
-#### 1. Tổng Quan Kiến Trúc Epic
+#### 1. Tổng quan Kiến trúc Epic
 
-- Tóm tắt ngắn gọn về cách tiếp cận kỹ thuật cho epic.
+- Tóm tắt ngắn gọn về phương pháp tiếp cận kỹ thuật cho epic.
 
-#### 2. Sơ Đồ Kiến Trúc Hệ Thống
+#### 2. Sơ đồ Kiến trúc Hệ thống
 
-Tạo sơ đồ Mermaid toàn diện mô tả đầy đủ kiến trúc hệ thống cho epic này. Sơ đồ cần bao gồm:
+Tạo một sơ đồ Mermaid toàn diện minh họa kiến trúc hệ thống hoàn chỉnh cho epic này. Sơ đồ nên bao gồm:
 
-- **Tầng Người Dùng**: Cách các loại người dùng khác nhau (trình duyệt web, ứng dụng di động, giao diện quản trị) tương tác với hệ thống.
-- **Tầng Ứng Dụng**: Load balancer, các instance ứng dụng, dịch vụ xác thực (Stack Auth).
-- **Tầng Dịch Vụ**: tRPC API, dịch vụ nền, workflow engine (n8n), và các dịch vụ đặc thù của epic.
-- **Tầng Dữ Liệu**: CSDL (PostgreSQL), vector DB (Qdrant), cache (Redis), và tích hợp API bên ngoài.
-- **Tầng Hạ Tầng**: Docker containerization và kiến trúc triển khai.
+- **Lớp Người dùng (User Layer)**: Hiển thị cách các loại người dùng khác nhau (trình duyệt web, ứng dụng di động, giao diện quản trị) tương tác với hệ thống.
+- **Lớp Ứng dụng (Application Layer)**: Mô tả các bộ cân bằng tải, các phiên bản ứng dụng và dịch vụ xác thực (Stack Auth).
+- **Lớp Dịch vụ (Service Layer)**: Bao gồm các API tRPC, dịch vụ nền, các công cụ quy trình làm việc (n8n) và bất kỳ dịch vụ nào dành riêng cho epic.
+- **Lớp Dữ liệu (Data Layer)**: Hiển thị cơ sở dữ liệu (PostgreSQL), cơ sở dữ liệu vector (Qdrant), các lớp bộ nhớ đệm (Redis) và tích hợp API bên ngoài.
+- **Lớp Cơ sở hạ tầng (Infrastructure Layer)**: Thể hiện việc container hóa bằng Docker và kiến trúc triển khai.
 
-Sử dụng **subgraph** rõ ràng để phân chia các tầng, áp dụng màu sắc nhất quán cho các loại thành phần khác nhau và thể hiện luồng dữ liệu giữa các thành phần. Bao gồm cả luồng xử lý đồng bộ và bất đồng bộ khi phù hợp.
+Sử dụng các đồ thị con (subgraph) rõ ràng để tổ chức các lớp này, áp dụng mã màu nhất quán cho các loại thành phần khác nhau và hiển thị luồng dữ liệu giữa các thành phần. Bao gồm cả các đường dẫn yêu cầu đồng bộ và các luồng xử lý không đồng bộ có liên quan đến epic.
 
-#### 3. Tính Năng Cấp Cao & Yếu Tố Kỹ Thuật
+#### 3. Các tính năng cấp cao & Yếu tố hỗ trợ kỹ thuật
 
-- Danh sách các tính năng cấp cao cần xây dựng.
-- Danh sách các yếu tố kỹ thuật (dịch vụ mới, thư viện, hạ tầng) cần để hỗ trợ các tính năng.
+- Một danh sách các tính năng cấp cao sẽ được xây dựng.
+- Một danh sách các yếu tố hỗ trợ kỹ thuật (ví dụ: dịch vụ mới, thư viện, cơ sở hạ tầng) cần thiết để hỗ trợ các tính năng.
 
-#### 4. Công Nghệ Sử Dụng
+#### 4. Ngăn xếp Công nghệ (Technology Stack)
 
-- Danh sách công nghệ, framework, thư viện chính được sử dụng.
+- Một danh sách các công nghệ, framework và thư viện chính sẽ được sử dụng.
 
-#### 5. Giá Trị Kỹ Thuật
+#### 5. Giá trị Kỹ thuật
 
-- Ước lượng giá trị kỹ thuật (Cao, Trung Bình, Thấp) kèm giải thích ngắn.
+- Ước tính giá trị kỹ thuật (ví dụ: Cao, Trung bình, Thấp) kèm theo một lý giải ngắn gọn.
 
-#### 6. Ước Lượng Quy Mô (T-Shirt Size)
+#### 6. Ước tính Kích thước (T-Shirt Size)
 
-- Ước lượng quy mô tổng thể cho epic (S, M, L, XL).
+- Cung cấp một ước tính kích thước cấp cao cho epic (ví dụ: S, M, L, XL).
 
-## Mẫu Ngữ Cảnh
+## Mẫu Bối cảnh
 
-- **Epic PRD:** [Nội dung file Epic PRD dạng markdown]
+- **PRD của Epic:** [Nội dung của tệp markdown PRD của Epic]
