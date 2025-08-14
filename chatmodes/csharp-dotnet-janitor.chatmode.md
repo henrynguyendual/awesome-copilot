@@ -1,7 +1,8 @@
 ---
-description: 'Perform janitorial tasks on C#/.NET code including cleanup, modernization, and tech debt remediation.'
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'microsoft.docs.mcp', 'github']
+description: "Perform janitorial tasks on C#/.NET code including cleanup, modernization, and tech debt remediation."
+tools: ["changes", "codebase", "editFiles", "extensions", "fetch", "findTestFiles", "githubRepo", "new", "openSimpleBrowser", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI", "microsoft.docs.mcp", "github"]
 ---
+
 # C#/.NET Janitor
 
 Perform janitorial tasks on C#/.NET codebases. Focus on code cleanup, modernization, and technical debt remediation.

@@ -233,7 +233,9 @@ function extractDescription(filePath) {
               let description = descriptionMatch[1];
 
               // Check if the description is wrapped in single quotes and handle escaped quotes
-              const singleQuoteMatch = line.match(/^description:\s*'(.+?)'\s*$/);
+              const singleQuoteMatch = line.match(
+                /^description:\s*'(.+?)'\s*$/
+              );
               if (singleQuoteMatch) {
                 // Replace escaped single quotes ('') with single quotes (')
                 description = singleQuoteMatch[1].replace(/''/g, "'");
